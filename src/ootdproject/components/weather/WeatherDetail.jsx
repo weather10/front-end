@@ -1,6 +1,6 @@
-import Avatar from '@mui/material/Avatar';
-import React from 'react';
-import { styled } from 'styled-components';
+import Avatar from "@mui/material/Avatar";
+import React from "react";
+import { styled } from "styled-components";
 
 function WeatherDetail({ icon, weatherText, index }) {
 	return (
@@ -25,13 +25,15 @@ export default WeatherDetail;
 // 	display: flex;
 // 	flex-direction: column;
 // 	justify-content: space-around;
-// `;
+// `;s
 
 const StWeatherDetailText = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 300px;
+	flex-direction: row-reverse;
+	gap: 60px;
 `;
 
 const StWeatherDetailIcon = styled.img`
@@ -42,20 +44,21 @@ const StWeatherDetailIcon = styled.img`
 
 const StTextBox = styled.div`
 	display: flex;
-	align-items: center;
+	box-sizing: border-box;
+	width: 200px;
 	border: 5px solid rgba(255, 255, 255, 0);
 	border-radius: 6px;
-	background-color: rgba(255, 255, 255, 0.7);
 `;
 
 const StDetailLabel = styled.label`
-	font-family: 'GowunDodum-Regular';
+	font-family: "GowunDodum-Regular";
 	font-size: 15pt;
 	font-weight: 600;
 	width: 200px;
 `;
 
 const StDetailIndex = styled.p`
-	font-family: 'GowunDodum-Regular';
-	font-size: 5px;
+	font-family: "GowunDodum-Regular";
+	font-size: 10px;
+	padding-left: 100px;
 `;
