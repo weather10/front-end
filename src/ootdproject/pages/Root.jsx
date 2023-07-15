@@ -16,7 +16,4 @@ export default root;
 
 const StContainer = styled.div`
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	flex-wrap: nowrap;
 `;

@@ -1,6 +1,6 @@
-import React from 'react';
-import { styled } from 'styled-components';
-import sunny from '../icon/sunny.png';
+import React from "react";
+import { styled } from "styled-components";
+import sunny from "../icon/sunny.png";
 
 function Weather() {
 	return (
@@ -11,9 +11,8 @@ function Weather() {
 						남양주시, <br /> 다산동
 					</StAddress>
 					<StToday>Tue, Jun 30</StToday>
-
 					<StWeatherMainIcon>
-						<StWeatherIcon src={sunny} alt="맑음" />
+						<StWeatherIcon src={sunny} alt='맑음' />
 						<span>
 							<StTemperature>19</StTemperature>
 							<StWeatherText>Sunny</StWeatherText>
@@ -38,13 +37,13 @@ const StWeatherPlace = styled.div`
 `;
 const StAddress = styled.h1`
 	@font-face {
-		font-family: 'IBMPlexSansKR-Regular';
-		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff')
-			format('woff');
+		font-family: "IBMPlexSansKR-Regular";
+		src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff")
+			format("woff");
 		font-weight: normal;
 		font-style: normal;
 	}
-	font-family: 'IBMPlexSansKR-Regular';
+	font-family: "IBMPlexSansKR-Regular";
 `;
 
 const StWeatherIcon = styled.img`
