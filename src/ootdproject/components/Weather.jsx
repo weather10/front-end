@@ -15,7 +15,6 @@ function Weather() {
 						남양주시, <br /> 다산동
 					</StAddress>
 					<StToday>Tue, Jun 30</StToday>
-
 					<StWeatherMainIcon>
 						<StWeatherIcon src={sunny} alt="맑음" />
 						<span>

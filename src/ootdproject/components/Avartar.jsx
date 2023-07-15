@@ -3,19 +3,15 @@ import { styled } from "styled-components";
 
 export default function Avartar({ image, type }) {
 	return (
-		<StAvatar>
+		<>
 			<StPhoto src={image} alt='avatar' type={type} />
-		</StAvatar>
+		</>
 	);
 }
 
 const StPhoto = styled.img`
 	border-radius: 100%;
 	${({ type }) => sizeHandler(type)};
-`;
-
-const StAvatar = styled.div`
-	margin: auto;
 `;
 
 const sizeHandler = (type) => {
