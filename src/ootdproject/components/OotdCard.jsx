@@ -1,13 +1,13 @@
-import React from "react";
-import Avartar from "../components/Avartar";
-import image from "../icon/basicAvatar.png";
-import { styled } from "styled-components";
+import React from 'react';
+import { styled } from 'styled-components';
+import Avartar from '../components/Avartar';
+import image from '../icon/basicAvatar.png';
 
 function OotdCard() {
 	return (
 		<StOotdContainer>
 			<StProfile>
-				<Avartar image={image} type='homeAvatar' />
+				<Avartar image={image} type="homeAvatar" />
 			</StProfile>
 		</StOotdContainer>
 	);
