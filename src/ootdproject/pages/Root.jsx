@@ -1,14 +1,22 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Weather from '../components/Weather';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Weather from "../components/Weather";
+import { styled } from "styled-components";
 
 function root() {
 	return (
-		<div>
+		<StContainer>
 			<Weather />
 			<Outlet />
-		</div>
+		</StContainer>
 	);
 }
 
 export default root;
+
+const StContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: nowrap;
+`;

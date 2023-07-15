@@ -1,7 +1,12 @@
 import React from "react";
+import OotdCard from "../components/OotdCard";
 
 function Home() {
-	return <div>Home</div>;
+	return (
+		<>
+			<OotdCard />
+		</>
+	);
 }
 
 export default Home;
