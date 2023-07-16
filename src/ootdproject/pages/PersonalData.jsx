@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
@@ -6,6 +7,7 @@ import { styled } from "styled-components";
 import avatar from "../icon/basicAvatar.png";
 import DropBox from "../components/imageUploader/DropBox";
 import { StOotdGramContainer, StSignInput } from "./SignIn";
+
 
 function PersonalData() {
 	const navigate = useNavigate();
@@ -24,6 +26,7 @@ function PersonalData() {
 	};
 
 	const [name, setName] = useState("");
+
 	return (
 		<StOotdGramContainer>
 			<div
@@ -58,7 +61,6 @@ function PersonalData() {
 				<>
 					<StEditModal>
 						<GrClose size={20} cursor='pointer' onClick={closeModal} />
-
 						<StModalBox>
 							<DropBox />
 						</StModalBox>
@@ -72,18 +74,20 @@ function PersonalData() {
 export default PersonalData;
 
 const StFont = styled.p`
-	font-family: "GowunDodum-Regular";
+	font-family: 'GowunDodum-Regular';
 	font-weight: 700;
+
 	${(props) => fontColorHandler(props.$fontColor)};
+
 	${({ $fontColor }) => fontColorHandler($fontColor)};
 `;
 
-const fontColorHandler = (color) => {
+const fontColorHandler = color => {
 	switch (color) {
-		case "blue":
+		case 'blue':
 			return `color:rgb(72, 132, 238);`;
 		default:
-			return "";
+			return '';
 	}
 };
 
