@@ -37,6 +37,7 @@ function Weather() {
 export default Weather;
 
 const StWeatherContainer = styled.div`
+	position: sticky;
 	width: 40%;
 	height: 100vh;
 	background-color: rgba(72, 132, 238, 0.2);

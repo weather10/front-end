@@ -3,11 +3,11 @@ import { styled } from "styled-components";
 import logo from "../../icon/logo.png";
 import NavBarButton from "./NavBarButton";
 
-function RightNavBar() {
+function RightNavBar({ stCardCenterRef }) {
 	return (
 		<StNavContainer>
-			<NavLogo src={logo} alt='로고' style={{ marginTop: "50px" }} />
-			<NavBarButton />
+			<NavLogo src={logo} alt='로고' />
+			<NavBarButton stCardCenterRef={stCardCenterRef} />
 		</StNavContainer>
 	);
 }
@@ -25,4 +25,5 @@ const StNavContainer = styled.div`
 const NavLogo = styled.img`
 	width: 200px;
 	height: 50px;
+	margin-top: 50px;
 `;

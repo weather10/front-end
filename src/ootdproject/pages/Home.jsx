@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useRef } from "react";
 import OotdCard from "../components/home/OotdCard";
 import { styled } from "styled-components";
 import RightNavBar from "../components/home/RightNavBar";
 
 function Home() {
+	const stCardCenterRef = useRef();
 	return (
 		<StOotdContainer>
-			<StCardCenter>
+			<StCardCenter ref={stCardCenterRef}>
+				<OotdCard />
+				<OotdCard />
+				<OotdCard />
+				<OotdCard />
 				<OotdCard />
 				<OotdCard />
 				<OotdCard />
 				<OotdCard />
 				<OotdCard />
 			</StCardCenter>
-			<RightNavBar />
+			<RightNavBar stCardCenterRef={stCardCenterRef} />
 		</StOotdContainer>
 	);
 }
@@ -31,10 +36,9 @@ const StCardCenter = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 70%;
-	height: 100vh;
-	justify-content: center;
+	max-height: 100vh;
 	align-items: center;
-	overflow-x: hidden;
+	overflow-y: auto;
 	/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
 	&::-webkit-scrollbar {
 		display: none;
