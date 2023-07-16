@@ -4,6 +4,7 @@ import { GrClose } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Avartar from '../components/Avartar';
+import DropBox from '../components/imageUploader/DropBox';
 import image from '../icon/basicAvatar.png';
 import { StOotdGramContainer, StSignInput } from './SignIn';
 
@@ -22,8 +23,6 @@ function PersonalData() {
 	const closeModal = () => {
 		setEditModal(false);
 	};
-
-	const editProfileHandler = () => {};
 
 	const [name, setName] = useState('');
 	return (
@@ -59,16 +58,15 @@ function PersonalData() {
 			></div>
 
 			{editModal && (
-				<StEditModal>
-					<StModalBox>
-						이미지 업로드 공간
-						<ButtonBox>
-							<FaCheck size={20} color="rgb(72, 130, 238)" cursor="pointer" />
+				<>
+					<StEditModal>
+						<GrClose size={20} cursor="pointer" onClick={closeModal} />
 
-							<GrClose size={20} onClick={closeModal} cursor="pointer" color="rgb(255, 0, 0)" />
-						</ButtonBox>
-					</StModalBox>
-				</StEditModal>
+						<StModalBox>
+							<DropBox />
+						</StModalBox>
+					</StEditModal>
+				</>
 			)}
 		</StOotdGramContainer>
 	);
@@ -113,12 +111,4 @@ const StModalBox = styled.div`
 	border-radius: 12px;
 	align-items: center;
 	justify-content: center;
-`;
-
-const ButtonBox = styled.div`
-	display: flex;
-	position: relative;
-	top: 20px;
-	left: 100px;
-	gap: 20px;
 `;
