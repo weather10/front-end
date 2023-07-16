@@ -20,13 +20,6 @@ function WeatherDetail({ icon, weatherText, index }) {
 
 export default WeatherDetail;
 
-// const StWeatherDetail = styled.div`
-// 	margin-top: 50px;
-// 	display: flex;
-// 	flex-direction: column;
-// 	justify-content: space-around;
-// `;s
-
 const StWeatherDetailText = styled.div`
 	display: flex;
 	align-items: center;
@@ -43,6 +36,7 @@ const StWeatherDetailIcon = styled.img`
 
 const StTextBox = styled.div`
 	display: flex;
+	align-items: center;
 	box-sizing: border-box;
 	width: 190px;
 	border: 5px solid rgba(255, 255, 255, 0);

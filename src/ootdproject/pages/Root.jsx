@@ -1,7 +1,7 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { styled } from 'styled-components';
-import Weather from '../components/weather/Weather';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { styled } from "styled-components";
+import Weather from "../components/weather/Weather";
 
 function root() {
 	return (

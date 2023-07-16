@@ -7,8 +7,8 @@ function DayOfWeek() {
 	return (
 		<div>
 			<StWeekBox>
-				{dayList.map((item) => {
-					return <StDayOfWeek>{item}</StDayOfWeek>;
+				{dayList.map((item, index) => {
+					return <StDayOfWeek key={index}>{item}</StDayOfWeek>;
 				})}
 			</StWeekBox>
 		</div>

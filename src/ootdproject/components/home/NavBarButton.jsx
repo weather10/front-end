@@ -3,14 +3,16 @@ import { styled } from "styled-components";
 import home from "../../icon/home.png";
 import add from "../../icon/add.png";
 import people from "../../icon/people.png";
+import { useNavigate } from "react-router-dom";
 
-function NavBarButton() {
+function NavBarButton({ stCardCenterRef }) {
 	const scrollToTop = () => {
-		window.scrollTo({
+		stCardCenterRef.current.scrollTo({
 			top: 0,
 			behavior: "smooth",
 		});
 	};
+	const navigate = useNavigate();
 
 	return (
 		<>
@@ -21,7 +23,10 @@ function NavBarButton() {
 				</HomeButton>
 			</StDiv>
 			<StDiv>
-				<SingUpButton>
+				<SingUpButton
+					onClick={() => {
+						navigate("signup");
+					}}>
 					<PeopleIcon src={people} alt='회원가입버튼' />
 					<StSpan>회원가입</StSpan>
 				</SingUpButton>
