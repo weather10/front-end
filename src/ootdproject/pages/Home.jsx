@@ -9,6 +9,9 @@ function Home() {
 			<StCardCenter>
 				<OotdCard />
 				<OotdCard />
+				<OotdCard />
+				<OotdCard />
+				<OotdCard />
 			</StCardCenter>
 			<RightNavBar />
 		</StOotdContainer>
