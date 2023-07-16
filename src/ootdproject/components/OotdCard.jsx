@@ -1,24 +1,24 @@
-import React from "react";
-import { styled } from "styled-components";
-import Avartar from "../components/Avartar";
-import image from "../icon/basicAvatar.png";
-import rainy from "../icon/rainy.png";
-import mainImg from "../icon/mainImg.png";
-import heart from "../icon/heart.png";
-import comment from "../icon/comment.png";
+import React from 'react';
+import { styled } from 'styled-components';
+import Avartar from '../components/Avartar';
+import image from '../icon/basicAvatar.png';
+import comment from '../icon/comment.png';
+import heart from '../icon/heart.png';
+import mainImg from '../icon/mainImg.png';
+import rainy from '../icon/rainy.png';
 
 function OotdCard() {
 	return (
 		<StOotdCardContainer>
 			<StCardHead>
-				<Avartar image={image} type='homeAvatar' />
+				<Avartar image={image} type="homeAvatar" />
 				이름
-				<StWeatherIcon src={rainy} alt='ootd-weather-icon' />
+				<StWeatherIcon src={rainy} alt="ootd-weather-icon" />
 			</StCardHead>
-			<div className='card-img'>
-				<StMainOotdImg src={mainImg} alt='userImage' />
+			<div className="card-img">
+				<StMainOotdImg src={mainImg} alt="userImage" />
 			</div>
-			<div className='like-comments-icon'>
+			<div className="like-comments-icon">
 				<StLike src={heart} />
 				<span>Liked by let</span>
 				<StComment src={comment} />
