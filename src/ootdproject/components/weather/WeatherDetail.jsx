@@ -30,10 +30,9 @@ export default WeatherDetail;
 const StWeatherDetailText = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	width: 300px;
+	justify-content: space-evenly;
+	width: 500px;
 	flex-direction: row-reverse;
-	gap: 60px;
 `;
 
 const StWeatherDetailIcon = styled.img`
@@ -45,20 +44,19 @@ const StWeatherDetailIcon = styled.img`
 const StTextBox = styled.div`
 	display: flex;
 	box-sizing: border-box;
-	width: 200px;
+	width: 190px;
 	border: 5px solid rgba(255, 255, 255, 0);
 	border-radius: 6px;
 `;
 
 const StDetailLabel = styled.label`
 	font-family: "GowunDodum-Regular";
-	font-size: 15pt;
+	font-size: 13pt;
 	font-weight: 600;
-	width: 200px;
 `;
 
 const StDetailIndex = styled.p`
 	font-family: "GowunDodum-Regular";
-	font-size: 10px;
+	font-size: 10pt;
 	padding-left: 100px;
 `;
