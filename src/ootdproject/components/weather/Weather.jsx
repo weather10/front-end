@@ -19,14 +19,14 @@ function Weather() {
 				<StWeatherMain>
 					<StWeatherIcon src={sunny} alt='맑음' />
 					<div>
-						<StTemperature>19</StTemperature>
+						<StTemperature>19°C</StTemperature>
 						<StWeatherText>Sunny</StWeatherText>
 					</div>
 				</StWeatherMain>
 				<StWeatherDetailBox>
-					<WeatherDetail icon={rainfall} weatherText='Rainfall' index='2cm' />
-					<WeatherDetail icon={wind} weatherText='Windy' index='19km/h' />
-					<WeatherDetail icon={humidity} weatherText='Humidity' index='68cm' />
+					<WeatherDetail icon={rainfall} weatherText='강수' index='2cm' />
+					<WeatherDetail icon={wind} weatherText='풍속' index='19km/h' />
+					<WeatherDetail icon={humidity} weatherText='습도' index='68cm' />
 				</StWeatherDetailBox>
 				<DayOfWeek />
 			</StWeatherContainer>
@@ -42,8 +42,8 @@ const StWeatherContainer = styled.div`
 	background-color: rgba(72, 132, 238, 0.2);
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	flex-direction: column;
-	padding-top: 150px;
 `;
 
 const StAddress = styled.p`

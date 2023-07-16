@@ -1,12 +1,13 @@
 import React from "react";
-import OotdCard from "../components/OotdCard";
+import OotdCard from "../components/home/OotdCard";
 import { styled } from "styled-components";
-import RightNavBar from "../components/RightNavBar";
+import RightNavBar from "../components/home/RightNavBar";
 
 function Home() {
 	return (
 		<StOotdContainer>
 			<StCardCenter>
+				<OotdCard />
 				<OotdCard />
 			</StCardCenter>
 			<RightNavBar />
@@ -21,12 +22,18 @@ const StOotdContainer = styled.div`
 	justify-content: space-between;
 	width: 60%;
 	height: 100vh;
-	background-color: aqua;
 `;
 
 const StCardCenter = styled.div`
 	display: flex;
+	flex-direction: column;
 	width: 70%;
+	height: 100vh;
 	justify-content: center;
-	background-color: brown;
+	align-items: center;
+	overflow-x: hidden;
+	/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;

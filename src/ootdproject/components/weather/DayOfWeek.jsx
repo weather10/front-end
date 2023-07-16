@@ -1,13 +1,13 @@
-import React from 'react';
-import { styled } from 'styled-components';
+import React from "react";
+import { styled } from "styled-components";
 
 function DayOfWeek() {
-	const dayList = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+	const dayList = ["오늘", "내일", "모레"];
 
 	return (
 		<div>
 			<StWeekBox>
-				{dayList.map(item => {
+				{dayList.map((item) => {
 					return <StDayOfWeek>{item}</StDayOfWeek>;
 				})}
 			</StWeekBox>
@@ -28,7 +28,7 @@ const StDayOfWeek = styled.div`
 	margin-top: 30px;
 	border: 5px solid rgba(255, 255, 255, 0);
 	background-color: rgba(255, 255, 255, 0.7);
-	border-radius: 6px;
-	width: 20px;
+	border-radius: 30px;
+	width: 100px;
 	height: 100px;
 `;
