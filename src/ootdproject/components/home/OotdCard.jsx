@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { styled } from "styled-components";
-import Avatar from "./Avatar";
-import image from "../../icon/basicAvatar.png";
-import rainy from "../../icon/rainy.png";
-import example from "../../icon/example.jpg";
-import emptyHeartImg from "../../icon/emptyHeartImg.png";
-import comment from "../../icon/comment.png";
-import axios from "axios";
+import axios from 'axios';
+import React, { useState } from 'react';
+import { styled } from 'styled-components';
+import image from '../../icon/basicAvatar.png';
+import comment from '../../icon/comment.png';
+import emptyHeartImg from '../../icon/emptyHeartImg.png';
+import example from '../../icon/example.jpg';
+import rainy from '../../icon/rainy.png';
+import Avatar from './Avatar';
 
 function OotdCard() {
 	const [like, setLike] = useState(false);
@@ -19,8 +19,8 @@ function OotdCard() {
 	// 	fetchData();
 	// }, []);
 
-	const toggleLike = async (e) => {
-		const res = await axios.post("http://localhost:4000/liked"); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
+	const toggleLike = async e => {
+		const res = await axios.post('http://localhost:4000/liked'); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
 		res.then();
 		setLike(!like);
 	};
@@ -30,71 +30,78 @@ function OotdCard() {
 			<StCardHead>
 				<div
 					style={{
-						marginLeft: "-30px",
-						marginRight: "260px",
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						gap: "10px",
-					}}>
-					<Avatar image={image} type='homeAvatar' />
+						marginLeft: '-30px',
+						marginRight: '260px',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						gap: '10px',
+					}}
+				>
+					<Avatar image={image} type="homeAvatar" />
 					<div
 						style={{
-							width: "50px",
-						}}>
+							width: '50px',
+						}}
+					>
 						userid
 					</div>
 				</div>
-				<WeatherIcon src={rainy} alt='ootd-weather-icon' />
+				<WeatherIcon src={rainy} alt="ootd-weather-icon" />
 			</StCardHead>
-			<div className='card-img'>
-				<MainOotdImg src={example} alt='userImage' />
+			<div className="card-img">
+				<MainOotdImg src={example} alt="userImage" />
 			</div>
-			<div className='like-comments-icon-container' style={{ display: "flex", width: "340px", marginTop: "px" }}>
+			<div className="like-comments-icon-container" style={{ display: 'flex', width: '340px', marginTop: 'px' }}>
 				<div
 					style={{
-						marginLeft: "-40px",
-						marginRight: "260px",
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-					}}>
+						marginLeft: '-40px',
+						marginRight: '260px',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+				>
 					<button
 						style={{
-							width: "50px",
-							border: "none",
-							backgroundColor: "white",
-							cursor: "pointer",
+							width: '50px',
+							border: 'none',
+							backgroundColor: 'white',
+							cursor: 'pointer',
 						}}
-						onClick={toggleLike}>
-						<StLike src={emptyHeartImg} alt='좋아요' />
+						onClick={toggleLike}
+					>
+						<StLike src={emptyHeartImg} alt="좋아요" />
 					</button>
 					<div
 						style={{
-							width: "50px",
-							whiteSpace: "nowrap",
-						}}>
+							width: '50px',
+							whiteSpace: 'nowrap',
+						}}
+					>
 						Liked by 'Like Count'
 					</div>
 				</div>
 				<button
 					style={{
-						width: "50px",
-						border: "none",
-						backgroundColor: "white",
-						cursor: "pointer",
-					}}>
-					<StComment src={comment} alt='댓글' />
+						width: '50px',
+						border: 'none',
+						backgroundColor: 'white',
+						cursor: 'pointer',
+					}}
+				>
+					<StComment src={comment} alt="댓글" />
 				</button>
 			</div>
 			<div
-				className='ellipsis'
+				className="ellipsis"
 				style={{
-					width: "400px",
-					whiteSpace: "nowrap",
-					overflow: "hidden",
-					textOverflow: "ellipsis",
-				}}>
+					width: '400px',
+					whiteSpace: 'nowrap',
+					overflow: 'hidden',
+					textOverflow: 'ellipsis',
+				}}
+			>
 				UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design resources ✍🏻
 				Follow to see how I'm building this page #ui #ux #productdesignct Designer
 			</div>
