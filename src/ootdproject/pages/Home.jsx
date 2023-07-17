@@ -8,6 +8,32 @@ function Home() {
 	return (
 		<StOotdContainer>
 			<StCardCenter ref={stCardCenterRef}>
+				{/* data: [
+					{
+						id: 1,
+						nickname: user,
+						content: react ㅁㅝㅅ같다.
+					},
+					{
+						id: 1,
+						nickname: user,
+						content: react ㅁㅝㅅ같다.
+					},
+					{
+						id: 1,
+						nickname: user,
+						content: react ㅁㅝㅅ같다.
+					},
+					{
+						id: 1,
+						nickname: user,
+						content: react ㅁㅝㅅ같다.
+					},
+				]
+				{
+					data.map
+				} */}
+				{/* nickname, content */}
 				<OotdCard />
 				<OotdCard />
 				<OotdCard />

@@ -30,11 +30,12 @@ function SignIn() {
 			/>
 
 			<StInputForm onSubmit={onSubmitHandler}>
+				<StSignInput placeholder='email' value={id} onChange={(e) => setId(e.target.value)} type='text' />
 				<StSignInput
-					placeholder="email or username"
-					value={id}
-					onChange={e => setId(e.target.value)}
-					type="text"
+					placeholder='PassWord'
+					value={pw}
+					onChange={(e) => setPw(e.target.value)}
+					type='password'
 				/>
 				<StSignInput placeholder="PassWord" value={pw} onChange={e => setPw(e.target.value)} type="password" />
 				<StSignButton type="submit" $bgColor={'blue'}>
