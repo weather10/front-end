@@ -1,5 +1,6 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import PersonalData from './pages/PersonalData';
 import Root from './pages/Root';
@@ -19,8 +20,16 @@ const router = createBrowserRouter([
 	},
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
-	return <RouterProvider router={router} />;
+	return (
+		<>
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider router={router} />
+			</QueryClientProvider>
+		</>
+	);
 }
 
 export default App;

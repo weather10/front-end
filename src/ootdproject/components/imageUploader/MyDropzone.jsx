@@ -27,13 +27,13 @@ const MyDropzone = () => {
 				/>
 			</STdropBoxTitle>
 
-			{uploadedFiles.length == 0 && (
+			{uploadedFiles.length === 0 && (
 				<StImageUl>
 					<BsFillCloudUploadFill size="100px" />
 				</StImageUl>
 			)}
 
-			{uploadedFiles.length == 1 && (
+			{uploadedFiles.length === 1 && (
 				<div>
 					{uploadedFiles.map(file => (
 						<StShowImg>
@@ -81,7 +81,7 @@ const StImageUl = styled.div`
 	align-items: center;
 `;
 
-const StShowImg = styled.div`
+export const StShowImg = styled.div`
 	/* background-color: pink; */
 	display: flex;
 	justify-content: center;

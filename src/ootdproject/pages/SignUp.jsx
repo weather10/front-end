@@ -38,7 +38,7 @@ function SignUp() {
 			/>
 
 			<StInputForm onSubmit={onSubmitHandler}>
-				<StSignInput placeholder="User Name" value={id} onChange={e => setId(e.target.value)} type="text" />
+				<StSignInput placeholder="Nick Name" value={id} onChange={e => setId(e.target.value)} type="text" />
 				<StSignInput placeholder="e-mail" value={email} onChange={e => setEmail(e.target.value)} type="text" />
 				<StSignInput placeholder="Password" value={pw} onChange={e => setPw(e.target.value)} type="password" />
 				<StSignInput

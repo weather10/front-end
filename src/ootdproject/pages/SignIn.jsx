@@ -1,20 +1,55 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+// import { addTodos, deleteTodos, getTodos, modifyTodos } from '../axios/api';
+import { useQuery } from 'react-query';
+import { getPosts } from '../axios/api';
 import signLogo from '../icon/logo.png';
 
 function SignIn() {
 	const navigate = useNavigate();
-	const [id, setId] = useState('');
+	const [email, setEmail] = useState('');
 	const [pw, setPw] = useState('');
+	// const queryClient = useQueryClient();
+	// const mutation = useMutation(addPosts, {
+	// 	onSuccess: ()=> {
+	// 		queryClient.invalidateQueries('posts')
+	// posts라는 이름을 가진 query를 다시 실행함. refresh
+	// 		console.log('성공')
+	// 	}
+	// })
+	// mutation.mutate(newPosts); dispatch처럼 쓰기
+
+	// GET
+	const { isLoading, isError, data } = useQuery('posts', getPosts);
+
+	if (isLoading) {
+		console.log('loading!!!');
+	}
+	if (isError) {
+		console.log('error!!!');
+	}
+	if (data) {
+		console.log('data!!!!');
+	}
+
+	// DELETE
+	// const deleteTodoMutation = useMutation(deleteTodos, {
+	// 	onsuccess: () => {
+	// 		queryClient.invalidateQueries('todos');
+	// 	},
+	// });
+	// onClick={()=>deleteTodoMutation.mutate(item.id)}
+
+	// console.log(data);
 
 	const onSubmitHandler = event => {
 		event.preventDefault();
-		if (id.trim() === '' && pw.trim() === '') {
-			alert('ID, PW를 입력하세요.');
-		} else if (!id) {
-			alert('email 혹은 ID를 입력하세요.');
-		} else if (!pw) {
+		if (email.trim() === '' && pw.trim() === '') {
+			alert('id, PW를 입력하세요.');
+		} else if (!email) {
+			alert('email 혹은 id를 입력하세요.');
+		} else if (!email) {
 			alert('Password를 입력하세요.');
 		}
 	};
@@ -30,13 +65,7 @@ function SignIn() {
 			/>
 
 			<StInputForm onSubmit={onSubmitHandler}>
-				<StSignInput placeholder='email' value={id} onChange={(e) => setId(e.target.value)} type='text' />
-				<StSignInput
-					placeholder='PassWord'
-					value={pw}
-					onChange={(e) => setPw(e.target.value)}
-					type='password'
-				/>
+				<StSignInput placeholder="email" value={email} onChange={e => setEmail(e.target.value)} type="text" />
 				<StSignInput placeholder="PassWord" value={pw} onChange={e => setPw(e.target.value)} type="password" />
 				<StSignButton type="submit" $bgColor={'blue'}>
 					Sign in
