@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { FaCheck } from "react-icons/fa";
-import { GrClose } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
-import avatar from "../icon/basicAvatar.png";
-import DropBox from "../components/imageUploader/DropBox";
-import { StOotdGramContainer, StSignInput } from "./SignIn";
+import React, { useState } from 'react';
+import { FaCheck } from 'react-icons/fa';
+import { GrClose } from 'react-icons/gr';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import MyDropzone, { StUploadBtn } from '../components/imageUploader/MyDropzone';
+import avatar from '../icon/basicAvatar.png';
+import { StOotdGramContainer, StSignInput } from './SignIn';
 
 function PersonalData() {
 	const navigate = useNavigate();
@@ -23,44 +23,55 @@ function PersonalData() {
 		setEditModal(false);
 	};
 
-	const [name, setName] = useState("");
+	const [name, setName] = useState('');
+
 	return (
 		<StOotdGramContainer>
 			<div
 				style={{
-					display: "flex",
-					justifyContent: "space-between",
-					alignItems: "center",
-					width: "320px",
-				}}>
-				<GrClose size={20} onClick={navigateToHome} cursor='pointer' />
+					display: 'flex',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					width: '320px',
+				}}
+			>
+				<GrClose
+					size={20}
+					style={{
+						cursor: 'pointer',
+					}}
+					onClick={navigateToHome}
+				/>
 				<StFont> Edit profile</StFont>
 				<FaCheck
 					size={20}
-					color='rgb(72, 132, 238)'
-					cursor='pointer'
+					color="rgb(72, 132, 238)"
+					cursor="pointer"
 					// onClick={서버에 사진 저장하기}
 				/>
 			</div>
-			<img src={avatar} alt='아바타' />
-			<StFont $fontColor={"blue"} style={{ cursor: "pointer" }} onClick={openModal}>
-				{" "}
-				Change profile photo{" "}
+			<img src={avatar} alt="아바타" />
+			<StFont $fontColor={'blue'} style={{ cursor: 'pointer' }} onClick={openModal}>
+				{' '}
+				Change profile photo{' '}
 			</StFont>
 
-			<StSignInput placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
+			<StSignInput placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
 			<div
 				style={{
-					height: "500px",
-				}}></div>
+					height: '500px',
+				}}
+			></div>
 
 			{editModal && (
 				<>
 					<StEditModal>
-						<GrClose size={20} cursor='pointer' onClick={closeModal} />
-
+						<GrClose size={20} cursor="pointer" onClick={closeModal} />
 						<StModalBox>
-							<DropBox />
+							<div>
+								<MyDropzone />
+								<StUploadBtn onClick={closeModal}>Upload</StUploadBtn>
+							</div>
 						</StModalBox>
 					</StEditModal>
 				</>
@@ -72,18 +83,20 @@ function PersonalData() {
 export default PersonalData;
 
 const StFont = styled.p`
-	font-family: "GowunDodum-Regular";
+	font-family: 'GowunDodum-Regular';
 	font-weight: 700;
-	${(props) => fontColorHandler(props.$fontColor)};
+
+	${props => fontColorHandler(props.$fontColor)};
+
 	${({ $fontColor }) => fontColorHandler($fontColor)};
 `;
 
-const fontColorHandler = (color) => {
+const fontColorHandler = color => {
 	switch (color) {
-		case "blue":
+		case 'blue':
 			return `color:rgb(72, 132, 238);`;
 		default:
-			return "";
+			return '';
 	}
 };
 
@@ -102,8 +115,8 @@ const StEditModal = styled.div`
 const StModalBox = styled.div`
 	display: flex;
 	background-color: rgba(255, 255, 255, 0.875);
-	width: 500px;
-	height: 500px;
+	width: 800px;
+	height: 800px;
 	border-radius: 12px;
 	align-items: center;
 	justify-content: center;
