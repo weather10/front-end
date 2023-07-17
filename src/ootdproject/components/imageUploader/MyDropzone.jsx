@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsFillCloudUploadFill } from 'react-icons/bs';
-
 import { GrClose } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-
-// yarn add react-dropzone
 
 const MyDropzone = () => {
 	const [uploadedFiles, setUploadedFiles] = useState('');
@@ -15,9 +12,6 @@ const MyDropzone = () => {
 		console.log(acceptedFiles);
 	};
 	const navigate = useNavigate();
-	// const navigateToPersonalData = () => {
-	// 	navigate('/PersonalData');
-	// };
 	const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
 	return (
@@ -59,7 +53,7 @@ const MyDropzone = () => {
 					))}
 				</div>
 			)}
-			<StUploadBtn onClick={e => e.stopPropagation()}>Upload</StUploadBtn>
+			{/* <StUploadBtn onClick={e => e.stopPropagation()}>Upload</StUploadBtn> 여기에 버튼 넣어서 사용하시면 됩니당 */}
 		</div>
 	);
 };
@@ -94,7 +88,7 @@ const StShowImg = styled.div`
 	align-items: center;
 `;
 
-const StUploadBtn = styled.button`
+export const StUploadBtn = styled.button`
 	font-family: 'LeferiPoint-SpecialItalicA';
 	font-weight: 600;
 	font-size: 20px;

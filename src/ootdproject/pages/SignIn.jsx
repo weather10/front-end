@@ -1,51 +1,53 @@
-import React, { useState } from "react";
-import { styled } from "styled-components";
-import signLogo from "../icon/logo.png";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import signLogo from '../icon/logo.png';
 
 function SignIn() {
 	const navigate = useNavigate();
-	const [id, setId] = useState("");
-	const [pw, setPw] = useState("");
+	const [id, setId] = useState('');
+	const [pw, setPw] = useState('');
 
-	const onSubmitHandler = (event) => {
+	const onSubmitHandler = event => {
 		event.preventDefault();
-		if (id.trim() === "" && pw.trim() === "") {
-			alert("ID, PW를 입력하세요.");
+		if (id.trim() === '' && pw.trim() === '') {
+			alert('ID, PW를 입력하세요.');
 		} else if (!id) {
-			alert("email 혹은 ID를 입력하세요.");
+			alert('email 혹은 ID를 입력하세요.');
 		} else if (!pw) {
-			alert("Password를 입력하세요.");
+			alert('Password를 입력하세요.');
 		}
 	};
 
 	return (
 		<StOotdGramContainer>
-			<StSignLogo src={signLogo} alt='로고' />
+			<StSignLogo
+				onClick={() => {
+					navigate('/');
+				}}
+				src={signLogo}
+				alt="로고"
+			/>
 
 			<StInputForm onSubmit={onSubmitHandler}>
 				<StSignInput
-					placeholder='email or username'
+					placeholder="email or username"
 					value={id}
-					onChange={(e) => setId(e.target.value)}
-					type='text'
+					onChange={e => setId(e.target.value)}
+					type="text"
 				/>
-				<StSignInput
-					placeholder='PassWord'
-					value={pw}
-					onChange={(e) => setPw(e.target.value)}
-					type='password'
-				/>
-				<StSignButton type='submit' $bgColor={"blue"}>
+				<StSignInput placeholder="PassWord" value={pw} onChange={e => setPw(e.target.value)} type="password" />
+				<StSignButton type="submit" $bgColor={'blue'}>
 					Sign in
 				</StSignButton>
 			</StInputForm>
-			<p style={{ color: "#dfdbdb" }}>――――――――　OR　――――――――</p>
+			<p style={{ color: '#dfdbdb' }}>――――――――　OR　――――――――</p>
 			<StSignButton
-				$bgColor={"gray"}
+				$bgColor={'gray'}
 				onClick={() => {
-					navigate("/signup");
-				}}>
+					navigate('/signup');
+				}}
+			>
 				Sign up
 			</StSignButton>
 		</StOotdGramContainer>
@@ -100,18 +102,18 @@ export const StSignButton = styled.button`
 	&:active {
 		filter: brightness(70%);
 	}
-	${(props) => colorHandler(props.$bgColor)};
+	${props => colorHandler(props.$bgColor)};
 
 	${({ $bgColor }) => colorHandler($bgColor)};
 `;
 
-const colorHandler = (color) => {
+const colorHandler = color => {
 	switch (color) {
-		case "blue":
+		case 'blue':
 			return `background-color:rgba(72, 132, 238, 0.6); color : white;`;
-		case "gray":
+		case 'gray':
 			return `color: black; background-color: #dfdbdb`;
 		default:
-			return "";
+			return '';
 	}
 };
