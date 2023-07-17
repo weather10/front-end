@@ -24,12 +24,7 @@ function SignIn() {
 			<StSignLogo src={signLogo} alt='로고' />
 
 			<StInputForm onSubmit={onSubmitHandler}>
-				<StSignInput
-					placeholder='email or username'
-					value={id}
-					onChange={(e) => setId(e.target.value)}
-					type='text'
-				/>
+				<StSignInput placeholder='email' value={id} onChange={(e) => setId(e.target.value)} type='text' />
 				<StSignInput
 					placeholder='PassWord'
 					value={pw}

@@ -10,6 +10,11 @@ import axios from "axios";
 
 function OotdCard() {
 	const [like, setLike] = useState(false);
+	const [moreContents, setMoreContents] = useState(false);
+
+	const moreViewHandler = () => {
+		setMoreContents((pre) => !pre);
+	};
 
 	// useEffect(async () => {
 	// 	const fetchData = async () => {
@@ -87,17 +92,30 @@ function OotdCard() {
 					<StComment src={comment} alt='댓글' />
 				</button>
 			</div>
-			<div
-				className='ellipsis'
-				style={{
-					width: "400px",
-					whiteSpace: "nowrap",
-					overflow: "hidden",
-					textOverflow: "ellipsis",
-				}}>
-				UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design resources ✍🏻
-				Follow to see how I'm building this page #ui #ux #productdesignct Designer
-			</div>
+			{moreContents && (
+				<div
+					className='ellipsis'
+					style={{
+						width: "400px",
+						whiteSpace: "nowrap",
+						overflow: "hidden",
+						textOverflow: "ellipsis",
+					}}>
+					UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design
+					resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
+				</div>
+			)}
+			{!moreContents && (
+				<div
+					className='ellipsis'
+					style={{
+						width: "400px",
+					}}>
+					UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design
+					resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
+				</div>
+			)}
+			<StMoreDetailBtn onClick={moreViewHandler}>더보기</StMoreDetailBtn>
 		</StOotdCardContainer>
 	);
 }
@@ -142,4 +160,12 @@ const StComment = styled.img`
 	width: 30px;
 	height: 30px;
 	background-color: transparent;
+`;
+
+const StMoreDetailBtn = styled.button`
+	display: flex;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	width: 410px;
 `;

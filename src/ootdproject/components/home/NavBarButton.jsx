@@ -61,8 +61,8 @@ const HomeButton = styled.button`
 	width: 100%;
 	height: 40px;
 	border: none;
-	border-radius: 8px;
 	background-color: transparent;
+	border-radius: 8px;
 	cursor: pointer;
 	&:hover {
 		background-color: rgba(214, 221, 234, 0.2);
