@@ -3,7 +3,7 @@ import { FaCheck } from 'react-icons/fa';
 import { GrClose } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import MyDropzone, { StUploadBtn } from '../components/imageUploader/MyDropzone';
+import MyModal from '../components/imageUploader/MyModal';
 import avatar from '../icon/basicAvatar.png';
 import { StOotdGramContainer, StSignInput } from './SignIn';
 
@@ -19,10 +19,6 @@ function PersonalData() {
 		setEditModal(true);
 	};
 
-	const closeModal = () => {
-		setEditModal(false);
-	};
-
 	const [name, setName] = useState('');
 
 	return (
@@ -33,6 +29,7 @@ function PersonalData() {
 					justifyContent: 'space-between',
 					alignItems: 'center',
 					width: '320px',
+					marginTop: '100px',
 				}}
 			>
 				<GrClose
@@ -56,26 +53,13 @@ function PersonalData() {
 				Change profile photo{' '}
 			</StFont>
 
-			<StSignInput placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
+			<StSignInput placeholder="NickName" value={name} onChange={e => setName(e.target.value)} />
 			<div
 				style={{
 					height: '500px',
 				}}
 			></div>
-
-			{editModal && (
-				<>
-					<StEditModal>
-						<GrClose size={20} cursor="pointer" onClick={closeModal} />
-						<StModalBox>
-							<div>
-								<MyDropzone />
-								<StUploadBtn onClick={closeModal}>Upload</StUploadBtn>
-							</div>
-						</StModalBox>
-					</StEditModal>
-				</>
-			)}
+			<MyModal editModal={editModal} />
 		</StOotdGramContainer>
 	);
 }
@@ -99,25 +83,3 @@ const fontColorHandler = color => {
 			return '';
 	}
 };
-
-const StEditModal = styled.div`
-	position: fixed;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.8);
-`;
-
-const StModalBox = styled.div`
-	display: flex;
-	background-color: rgba(255, 255, 255, 0.875);
-	width: 800px;
-	height: 800px;
-	border-radius: 12px;
-	align-items: center;
-	justify-content: center;
-`;

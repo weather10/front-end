@@ -1,19 +1,18 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import image from '../../icon/basicAvatar.png';
 import comment from '../../icon/comment.png';
-import emptyHeartImg from '../../icon/emptyHeartImg.png';
 import example from '../../icon/example.jpg';
 import rainy from '../../icon/rainy.png';
 import Avatar from './Avatar';
+import LikeButton from './LikeButton';
 
 function OotdCard() {
 	const [like, setLike] = useState(false);
-	const [moreContents, setMoreContents] = useState(false);
+	const [moreContents, setMoreContents] = useState(true);
 
 	const moreViewHandler = () => {
-		setMoreContents((pre) => !pre);
+		setMoreContents(pre => !pre);
 	};
 
 	// useEffect(async () => {
@@ -24,9 +23,12 @@ function OotdCard() {
 	// 	fetchData();
 	// }, []);
 
-	const toggleLike = async e => {
-		const res = await axios.post('http://localhost:4000/liked'); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
-		res.then();
+	// const toggleLike = async e => {
+	// 	const res = await axios.post('http://localhost:4000/liked'); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
+	// 	res.then();
+	// 	setLike(!like);
+	// };
+	const toggleLike = () => {
 		setLike(!like);
 	};
 
@@ -67,17 +69,7 @@ function OotdCard() {
 						justifyContent: 'center',
 					}}
 				>
-					<button
-						style={{
-							width: '50px',
-							border: 'none',
-							backgroundColor: 'white',
-							cursor: 'pointer',
-						}}
-						onClick={toggleLike}
-					>
-						<StLike src={emptyHeartImg} alt="좋아요" />
-					</button>
+					<LikeButton src={like} onClick={toggleLike} />
 					<div
 						style={{
 							width: '50px',
@@ -100,29 +92,30 @@ function OotdCard() {
 			</div>
 			{moreContents && (
 				<div
-					className='ellipsis'
+					className="ellipsis"
 					style={{
-						width: "400px",
-						whiteSpace: "nowrap",
-						overflow: "hidden",
-						textOverflow: "ellipsis",
-					}}>
+						width: '400px',
+						whiteSpace: 'nowrap',
+						overflow: 'hidden',
+						textOverflow: 'ellipsis',
+					}}
+				>
 					UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design
 					resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
 				</div>
 			)}
 			{!moreContents && (
 				<div
-					className='ellipsis'
+					className="ellipsis"
 					style={{
-						width: "400px",
-					}}>
+						width: '400px',
+					}}
+				>
 					UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design
 					resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
 				</div>
 			)}
 			<StMoreDetailBtn onClick={moreViewHandler}>더보기</StMoreDetailBtn>
-
 		</StOotdCardContainer>
 	);
 }
