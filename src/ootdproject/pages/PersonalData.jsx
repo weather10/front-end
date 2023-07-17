@@ -3,7 +3,7 @@ import { FaCheck } from 'react-icons/fa';
 import { GrClose } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import MyDropzone from '../components/imageUploader/MyDropzone';
+import MyDropzone, { StUploadBtn } from '../components/imageUploader/MyDropzone';
 import avatar from '../icon/basicAvatar.png';
 import { StOotdGramContainer, StSignInput } from './SignIn';
 
@@ -35,7 +35,13 @@ function PersonalData() {
 					width: '320px',
 				}}
 			>
-				<GrClose size={20} onClick={navigateToHome} cursor="pointer" />
+				<GrClose
+					size={20}
+					style={{
+						cursor: 'pointer',
+					}}
+					onClick={navigateToHome}
+				/>
 				<StFont> Edit profile</StFont>
 				<FaCheck
 					size={20}
@@ -62,7 +68,10 @@ function PersonalData() {
 					<StEditModal>
 						<GrClose size={20} cursor="pointer" onClick={closeModal} />
 						<StModalBox>
-							<MyDropzone />
+							<div>
+								<MyDropzone />
+								<StUploadBtn onClick={closeModal}>Upload</StUploadBtn>
+							</div>
 						</StModalBox>
 					</StEditModal>
 				</>
