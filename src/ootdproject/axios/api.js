@@ -1,11 +1,49 @@
-import axios from 'axios';
+import axios from "axios";
+export const instance = axios.create({
+	baseURL: "http://ec2-54-180-120-109.ap-northeast-2.compute.amazonaws.com",
+});
+
+// 회원가입 POST
+export const postSignUp = async (nickname, email, password) => {
+	try {
+		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/login`, {
+			nickname: nickname,
+			email: email,
+			password: password,
+		});
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// 로그인 POST
+export const postSignIn = async (email, password) => {
+	try {
+		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/login`, {
+			email: email,
+			password: password,
+		});
+		document.cookie = `accessToken=${response.headers.accesstoken}; path=/;`;
+		return response.data; // 로그인 성공 시 서버에서 반환한 데이터를 클라이언트에 반환
+	} catch (error) {
+		throw error; // 로그인 실패 시 에러를 던짐
+	}
+};
 
 // 게시글 조회
 const getPosts = async () => {
 	const response = await axios.get(`${process.env.REACT_APP_SERVER}/api/posts`);
-	console.log('data', response.data);
+	console.log("data", response.data);
 	return response.data;
 };
+
+export { getPosts };
+
+// setErrorMsg(error.response.data.message);
+// console.log(res);
+//토큰을 꺼내서 쿠키에 저장한다!!!!!!!!!알겠냐~~~~~!!!!어린양들아~~~~!!!!!!!ㅋㅋㅋㅋㅋ
+// document.cookie = `accessToken=${res.headers.accesstoken}; path=/`;
 
 // // ------------
 // // 추가
@@ -26,7 +64,6 @@ const getPosts = async () => {
 
 // export { addTodos, deleteTodos, getPosts, modifyTodos };
 
-export { getPosts };
 // const instance = axios.create({
 // 	baseURL: 'http://localhost:4000',
 // });
