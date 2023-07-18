@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import avatar from "../icon/basicAvatar.png";
 import { StOotdGramContainer, StSignInput } from "./SignIn";
-import MyModal from "../components/Modal/MyModal";
+import PersonalDataEditModal from "../components/Modal/PersonalDataEditModal";
 function PersonalData() {
 	const navigate = useNavigate();
 	const navigateToHome = () => {
@@ -56,7 +56,7 @@ function PersonalData() {
 				style={{
 					height: "500px",
 				}}></div>
-			<MyModal editModal={editModal} />
+			<PersonalDataEditModal editModal={editModal} />
 		</StOotdGramContainer>
 	);
 }

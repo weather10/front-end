@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import { styled } from "styled-components";
+import { postLike } from "../../axios/api";
 import image from "../../icon/basicAvatar.png";
 import comment from "../../icon/comment.png";
 import example from "../../icon/example.jpg";
@@ -34,8 +36,21 @@ function OotdCard() {
 	// 	res.then();
 	// 	setLike(!like);
 	// };
+
+	//const [mutate, { data, loading, error }] = useMutation(MUTATION_QUERY);
+	const postLikeMutation = useMutation(postLike, {
+		onSuccess: (data) => {
+			// 어쩌고
+		},
+		onError: (err) => {
+			console.log(err.message);
+		},
+	});
+
 	const toggleLike = () => {
 		setLike(!like);
+		postLikeMutation.mutate({ like });
+		console.log("toggleLike", like);
 	};
 
 	return (

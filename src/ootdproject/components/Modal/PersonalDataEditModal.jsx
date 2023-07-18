@@ -4,17 +4,17 @@ import { styled } from "styled-components";
 import Avatar from "../home/Avatar";
 import MyDropzone, { StShowImg, StUploadBtn } from "./MyDropzone";
 
-function MyModal({ editModal }) {
-	const [close, setClose] = useState(false);
+function PersonalDataEditModal({ editModal }) {
+	const [personalClose, setperconalClose] = useState(false);
 
 	const saveImage = () => {
-		closeModal();
+		personalCloseModal();
 		<Avatar>
 			<StShowImg />
 		</Avatar>;
 	};
-	const closeModal = () => {
-		setClose(true);
+	const personalCloseModal = () => {
+		setperconalClose(true);
 	};
 
 	return (
@@ -22,7 +22,7 @@ function MyModal({ editModal }) {
 			{editModal && (
 				<>
 					<StEditModal>
-						<GrClose size={20} cursor='pointer' onClick={closeModal} />
+						<GrClose size={20} cursor='pointer' onClick={personalCloseModal} />
 						<StModalBox>
 							<div>
 								<MyDropzone />
@@ -36,7 +36,7 @@ function MyModal({ editModal }) {
 	);
 }
 
-export default MyModal;
+export default PersonalDataEditModal;
 
 const StEditModal = styled.div`
 	position: fixed;
