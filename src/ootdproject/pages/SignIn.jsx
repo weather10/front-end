@@ -1,56 +1,38 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
 // import { addTodos, deleteTodos, getTodos, modifyTodos } from '../axios/api';
-import { useQuery } from 'react-query';
-import { getPosts } from '../axios/api';
-import signLogo from '../icon/logo.png';
+// import { useQuery } from "react-query";
+// import { getPosts } from "../axios/api";
+import signLogo from "../icon/logo.png";
+import { postSignIn } from "../axios/api";
+import { useMutation } from "react-query";
 
 function SignIn() {
 	const navigate = useNavigate();
-	const [email, setEmail] = useState('');
-	const [pw, setPw] = useState('');
-	// const queryClient = useQueryClient();
-	// const mutation = useMutation(addPosts, {
-	// 	onSuccess: ()=> {
-	// 		queryClient.invalidateQueries('posts')
-	// posts라는 이름을 가진 query를 다시 실행함. refresh
-	// 		console.log('성공')
-	// 	}
-	// })
-	// mutation.mutate(newPosts); dispatch처럼 쓰기
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
-	// GET
-	const { isLoading, isError, data } = useQuery('posts', getPosts);
+	const postSignInMutaion = useMutation(postSignIn, {
+		onSuccess: (data) => {
+			console.log(data); //
+		},
+		onError: (err) => {
+			console.log(err.message);
+		},
+	});
 
-	if (isLoading) {
-		console.log('loading!!!');
-	}
-	if (isError) {
-		console.log('error!!!');
-	}
-	if (data) {
-		console.log('data!!!!');
-	}
-
-	// DELETE
-	// const deleteTodoMutation = useMutation(deleteTodos, {
-	// 	onsuccess: () => {
-	// 		queryClient.invalidateQueries('todos');
-	// 	},
-	// });
-	// onClick={()=>deleteTodoMutation.mutate(item.id)}
-
-	// console.log(data);
-
-	const onSubmitHandler = event => {
+	const onSubmitHandler = async (event) => {
 		event.preventDefault();
-		if (email.trim() === '' && pw.trim() === '') {
-			alert('id, PW를 입력하세요.');
+
+		if (email.trim() === "" && password.trim() === "") {
+			alert("id, PW를 입력하세요.");
 		} else if (!email) {
-			alert('email 혹은 id를 입력하세요.');
-		} else if (!email) {
-			alert('Password를 입력하세요.');
+			alert("email 혹은 id를 입력하세요.");
+		} else if (!password) {
+			alert("Password를 입력하세요.");
+		} else {
+			postSignInMutaion.mutate(email, password);
 		}
 	};
 
@@ -58,26 +40,30 @@ function SignIn() {
 		<StOotdGramContainer>
 			<StSignLogo
 				onClick={() => {
-					navigate('/');
+					navigate("/");
 				}}
 				src={signLogo}
-				alt="로고"
+				alt='로고'
 			/>
 
 			<StInputForm onSubmit={onSubmitHandler}>
-				<StSignInput placeholder="email" value={email} onChange={e => setEmail(e.target.value)} type="text" />
-				<StSignInput placeholder="PassWord" value={pw} onChange={e => setPw(e.target.value)} type="password" />
-				<StSignButton type="submit" $bgColor={'blue'}>
+				<StSignInput placeholder='email' value={email} onChange={(e) => setEmail(e.target.value)} type='text' />
+				<StSignInput
+					placeholder='PassWord'
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					type='password'
+				/>
+				<StSignButton type='submit' $bgColor={"blue"}>
 					Sign in
 				</StSignButton>
 			</StInputForm>
-			<p style={{ color: '#dfdbdb' }}>――――――――　OR　――――――――</p>
+			<p style={{ color: "#dfdbdb" }}>――――――――　OR　――――――――</p>
 			<StSignButton
-				$bgColor={'gray'}
+				$bgColor={"gray"}
 				onClick={() => {
-					navigate('/signup');
-				}}
-			>
+					navigate("/signup");
+				}}>
 				Sign up
 			</StSignButton>
 		</StOotdGramContainer>
@@ -132,18 +118,61 @@ export const StSignButton = styled.button`
 	&:active {
 		filter: brightness(70%);
 	}
-	${props => colorHandler(props.$bgColor)};
+	${(props) => colorHandler(props.$bgColor)};
 
 	${({ $bgColor }) => colorHandler($bgColor)};
 `;
 
-const colorHandler = color => {
+const colorHandler = (color) => {
 	switch (color) {
-		case 'blue':
+		case "blue":
 			return `background-color:rgba(72, 132, 238, 0.6); color : white;`;
-		case 'gray':
+		case "gray":
 			return `color: black; background-color: #dfdbdb`;
 		default:
-			return '';
+			return "";
 	}
 };
+
+// const queryClient = useQueryClient();
+// const mutation = useMutation(addPosts, {
+// 	onSuccess: ()=> {
+// 		queryClient.invalidateQueries('posts')
+// posts라는 이름을 가진 query를 다시 실행함. refresh
+// 		console.log('성공')
+// 	}
+// })
+// mutation.mutate(newPosts); dispatch처럼 쓰기
+
+// GET
+// const { isLoading, isError, data } = useQuery("posts", getPosts);
+
+// if (isLoading) {
+// 	console.log("loading!!!");
+// }
+// if (isError) {
+// 	console.log("error!!!");
+// }
+// if (data) {
+// 	console.log("data!!!!");
+
+// DELETE
+// const deleteTodoMutation = useMutation(deleteTodos, {
+// 	onsuccess: () => {
+// 		queryClient.invalidateQueries('posts');
+// 	},
+// });
+// onClick={()=>deleteTodoMutation.mutate(item.id)}
+
+// console.log(data);
+
+// const onSubmitHandler = (event) => {
+// 	event.preventDefault();
+// 	if (email.trim() === "" && password.trim() === "") {
+// 		alert("id, PW를 입력하세요.");
+// 	} else if (!email) {
+// 		alert("email 혹은 id를 입력하세요.");
+// 	} else if (!email) {
+// 		alert("Password를 입력하세요.");
+// 	}
+// };

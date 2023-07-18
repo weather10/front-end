@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { GrClose } from 'react-icons/gr';
-import { styled } from 'styled-components';
-import Avatar from '../home/Avatar';
-import MyDropzone, { StShowImg, StUploadBtn } from './MyDropzone';
+import React, { useState } from "react";
+import { GrClose } from "react-icons/gr";
+import { styled } from "styled-components";
+import Avatar from "../home/Avatar";
+import MyDropzone, { StShowImg, StUploadBtn } from "./MyDropzone";
 
 function MyModal({ editModal }) {
 	const [close, setClose] = useState(false);
@@ -17,14 +17,12 @@ function MyModal({ editModal }) {
 		setClose(true);
 	};
 
-	console.log('editModal', editModal);
-
 	return (
 		<div>
 			{editModal && (
 				<>
 					<StEditModal>
-						<GrClose size={20} cursor="pointer" onClick={closeModal} />
+						<GrClose size={20} cursor='pointer' onClick={closeModal} />
 						<StModalBox>
 							<div>
 								<MyDropzone />
