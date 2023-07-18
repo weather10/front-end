@@ -34,14 +34,7 @@ function Home() {
 					data.map
 				} */}
 				{/* nickname, content */}
-				<OotdCard />
-				<OotdCard />
-				<OotdCard />
-				<OotdCard />
-				<OotdCard />
-				<OotdCard />
-				<OotdCard />
-				<OotdCard />
+
 				<OotdCard />
 			</StCardCenter>
 			<RightNavBar stCardCenterRef={stCardCenterRef} />

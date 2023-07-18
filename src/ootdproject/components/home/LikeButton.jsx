@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import styled from 'styled-components';
-import EmptyHeartImg from '../../icon/emptyHeartImg.png';
-import HeartImg from '../../icon/heartImg.png';
+import styled from "styled-components";
+import EmptyHeartImg from "../../icon/emptyHeartImg.png";
+import HeartImg from "../../icon/heartImg.png";
 
-const Heart = styled.img``;
+// const Heart = styled.img``;
 
 const LikeButton = ({ like, onClick }) => {
-	console.log('like', like);
 	return (
 		<>
 			<StButton onClick={onClick}>

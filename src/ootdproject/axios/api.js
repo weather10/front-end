@@ -1,33 +1,57 @@
 import axios from "axios";
-export const instance = axios.create({
-	baseURL: "http://ec2-54-180-120-109.ap-northeast-2.compute.amazonaws.com",
-});
+// export const instance = axios.create({
+// 	baseURL: "http://ec2-54-180-120-109.ap-northeast-2.compute.amazonaws.com",
+// });
+
+const headers = {
+	Accept: "*/*", // 돌려받는 거 전부 받을 수 있게
+	authorization: "", // 엑세스 토큰 넣는 곳
+	"Content-Type": "application/json", // 객체 보낼 때는 application/json
+	// "Content-Type": "multipart/form-data", // FormData는 이걸로
+	// 헤더에 넣는 방법은 헤더 키값 : 벨류값
+	// headerName : headerValue
+};
 
 // 회원가입 POST
-export const postSignUp = async (nickname, email, password) => {
+export const postSignUp = async (payload) => {
 	try {
-		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/login`, {
-			nickname: nickname,
-			email: email,
-			password: password,
-		});
+		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/signup`, payload);
 		return response.data;
 	} catch (error) {
-		console.log(error);
+		console.log("api쪽로직 error", error);
 	}
 };
 
 // 로그인 POST
-export const postSignIn = async (email, password) => {
+export const postSignIn = async (payload) => {
 	try {
-		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/login`, {
-			email: email,
-			password: password,
-		});
-		document.cookie = `accessToken=${response.headers.accesstoken}; path=/;`;
+		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/login`, payload);
+		console.log(response);
+		// //헤더에 받는다라!!!!!!!훔
+		document.cookie = `accessToken=${response.headers.authorization}; path=/;`;
 		return response.data; // 로그인 성공 시 서버에서 반환한 데이터를 클라이언트에 반환
 	} catch (error) {
 		throw error; // 로그인 실패 시 에러를 던짐
+	}
+};
+
+// 게시글 좋아요 POST
+export const postLike = async (payload) => {
+	try {
+		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post/{postId}/like`, payload);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+};
+
+// 게시글 좋아요 취소 PUT
+export const putLikeCancel = async (payload) => {
+	try {
+		const response = await axios.put(`${process.env.REACT_APP_SERVER}/api/post/{postId}/like`, payload);
+		return response.data;
+	} catch (error) {
+		throw error;
 	}
 };
 
