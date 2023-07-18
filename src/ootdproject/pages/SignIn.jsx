@@ -7,32 +7,72 @@ import { styled } from "styled-components";
 import signLogo from "../icon/logo.png";
 import { postSignIn } from "../axios/api";
 import { useMutation } from "react-query";
+import { isEmail, isPassword } from "./SignUp";
 
+//SingIn 컴포넌트
 function SignIn() {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [latitude, setLatitude] = useState("");
+	const [longitude, setLongitude] = useState("");
 
 	const postSignInMutaion = useMutation(postSignIn, {
 		onSuccess: (data) => {
-			console.log(data); //
+			console.log(data);
 		},
 		onError: (err) => {
-			console.log(err.message);
+			console.log("postSignIn에러입니다", err.message);
 		},
 	});
 
 	const onSubmitHandler = async (event) => {
 		event.preventDefault();
-
 		if (email.trim() === "" && password.trim() === "") {
 			alert("id, PW를 입력하세요.");
 		} else if (!email) {
 			alert("email 혹은 id를 입력하세요.");
 		} else if (!password) {
 			alert("Password를 입력하세요.");
+		} else if (!isEmail(email)) {
+			alert("이메일을 올바르게 입력해주세요.");
+		} else if (!isPassword(password)) {
+			alert("패스워드는 8~16자, 영문,숫자,특수문자 조합으로 입력해주세요.");
 		} else {
-			postSignInMutaion.mutate(email, password);
+			async function getLocation() {
+				return new Promise((resolve, reject) => {
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(
+							(position) => {
+								resolve(position.coords);
+							},
+							(error) => {
+								reject(error);
+							},
+							{
+								enableHighAccuracy: false,
+								maximumAge: 0,
+								timeout: Infinity,
+							}
+						);
+					} else {
+						reject(new Error("GPS를 지원하지 않습니다"));
+					}
+				});
+			}
+
+			try {
+				const coords = await getLocation();
+				const { latitude, longitude } = coords;
+				setLatitude(latitude);
+				setLongitude(longitude);
+
+				postSignInMutaion.mutate({ email, password, latitude, longitude });
+				navigate("/");
+				alert("로그인 성공!");
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	};
 
@@ -76,6 +116,7 @@ export const StSignLogo = styled.img`
 	width: 200px;
 	height: 50px;
 	margin-bottom: 80px;
+	cursor: pointer;
 `;
 
 export const StOotdGramContainer = styled.div`
@@ -115,7 +156,7 @@ export const StSignButton = styled.button`
 	padding: 10px;
 	margin-top: 32px;
 	cursor: pointer;
-	&:active {
+	&:hover {
 		filter: brightness(70%);
 	}
 	${(props) => colorHandler(props.$bgColor)};

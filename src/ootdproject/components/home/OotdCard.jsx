@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { styled } from "styled-components";
-import image from "../../icon/basicAvatar.png";
-import comment from "../../icon/comment.png";
-import example from "../../icon/example.jpg";
-import rainy from "../../icon/rainy.png";
-import Comments from "../Modal/Comments";
-import Avatar from "./Avatar";
-import LikeButton from "./LikeButton";
+import React, { useState } from 'react';
+import { useMutation } from 'react-query';
+import { styled } from 'styled-components';
+import { postLike } from '../../axios/api';
+import image from '../../icon/basicAvatar.png';
+import comment from '../../icon/comment.png';
+import example from '../../icon/example.jpg';
+import rainy from '../../icon/rainy.png';
+import Comments from '../Modal/Comments';
+import Avatar from './Avatar';
+import LikeButton from './LikeButton';
 
 function OotdCard() {
 	const [like, setLike] = useState(false);
@@ -14,7 +16,7 @@ function OotdCard() {
 	const [openComments, setOpenComments] = useState(false);
 
 	const moreViewHandler = () => {
-		setMoreContents((pre) => !pre);
+		setMoreContents(pre => !pre);
 	};
 
 	const openCommentsHandler = () => {
@@ -34,8 +36,21 @@ function OotdCard() {
 	// 	res.then();
 	// 	setLike(!like);
 	// };
+
+	//const [mutate, { data, loading, error }] = useMutation(MUTATION_QUERY);
+	const postLikeMutation = useMutation(postLike, {
+		onSuccess: data => {
+			// 어쩌고
+		},
+		onError: err => {
+			console.log('ootdCard에러', err.message);
+		},
+	});
+
 	const toggleLike = () => {
 		setLike(!like);
+		postLikeMutation.mutate({ like });
+		console.log('toggleLike', like);
 	};
 
 	return (
@@ -44,76 +59,84 @@ function OotdCard() {
 				<StCardHead>
 					<div
 						style={{
-							marginLeft: "-30px",
-							marginRight: "260px",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-							gap: "10px",
-						}}>
-						<Avatar image={image} type='homeAvatar' />
+							marginLeft: '-30px',
+							marginRight: '260px',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							gap: '10px',
+						}}
+					>
+						<Avatar image={image} type="homeAvatar" />
 						<div
 							style={{
-								width: "50px",
-							}}>
+								width: '50px',
+							}}
+						>
 							userid
 						</div>
 					</div>
-					<WeatherIcon src={rainy} alt='ootd-weather-icon' />
+					<WeatherIcon src={rainy} alt="ootd-weather-icon" />
 				</StCardHead>
-				<div className='card-img'>
-					<MainOotdImg src={example} alt='userImage' />
+				<div className="card-img">
+					<MainOotdImg src={example} alt="userImage" />
 				</div>
 				<div
-					className='like-comments-icon-container'
-					style={{ display: "flex", width: "340px", marginTop: "px" }}>
+					className="like-comments-icon-container"
+					style={{ display: 'flex', width: '340px', marginTop: 'px' }}
+				>
 					<div
 						style={{
-							marginLeft: "-40px",
-							marginRight: "260px",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-						}}>
+							marginLeft: '-40px',
+							marginRight: '260px',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
 						<LikeButton like={like} onClick={toggleLike} />
 						<div
 							style={{
-								width: "50px",
-								whiteSpace: "nowrap",
-							}}>
+								width: '50px',
+								whiteSpace: 'nowrap',
+							}}
+						>
 							Liked by 'Like Count'
 						</div>
 					</div>
 					<button
 						style={{
-							width: "50px",
-							border: "none",
-							backgroundColor: "white",
-							cursor: "pointer",
+							width: '50px',
+							border: 'none',
+							backgroundColor: 'white',
+							cursor: 'pointer',
 						}}
-						onClick={openCommentsHandler}>
-						<StComment src={comment} alt='댓글' />
+						onClick={openCommentsHandler}
+					>
+						<StComment src={comment} alt="댓글" />
 					</button>
 				</div>
 				{moreContents && (
 					<div
-						className='ellipsis'
+						className="ellipsis"
 						style={{
-							width: "400px",
-							whiteSpace: "nowrap",
-							overflow: "hidden",
-							textOverflow: "ellipsis",
-						}}>
+							width: '400px',
+							whiteSpace: 'nowrap',
+							overflow: 'hidden',
+							textOverflow: 'ellipsis',
+						}}
+					>
 						UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design
 						resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
 					</div>
 				)}
 				{!moreContents && (
 					<div
-						className='ellipsis'
+						className="ellipsis"
 						style={{
-							width: "400px",
-						}}>
+							width: '400px',
+						}}
+					>
 						UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design
 						resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
 					</div>

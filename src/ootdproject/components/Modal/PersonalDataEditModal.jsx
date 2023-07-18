@@ -1,32 +1,25 @@
-import React, { useState } from "react";
-import { GrClose } from "react-icons/gr";
-import { styled } from "styled-components";
-import Avatar from "../home/Avatar";
-import MyDropzone, { StShowImg, StUploadBtn } from "./MyDropzone";
+import React from 'react';
+import { RiCloseCircleLine } from 'react-icons/ri';
+import { styled } from 'styled-components';
+import MyDropzone, { StUploadBtn } from './MyDropzone';
+function PersonalDataEditModal({ editModal, personalCloseModal }) {
+	// const [personalClose, setPersonalClose] = useState(false);
 
-function MyModal({ editModal }) {
-	const [close, setClose] = useState(false);
-
-	const saveImage = () => {
-		closeModal();
-		<Avatar>
-			<StShowImg />
-		</Avatar>;
-	};
-	const closeModal = () => {
-		setClose(true);
-	};
+	// const personalCloseModal = () => {
+	// 	setPersonalClose(true);
+	// };
 
 	return (
 		<div>
 			{editModal && (
 				<>
 					<StEditModal>
-						<GrClose size={20} cursor='pointer' onClick={closeModal} />
 						<StModalBox>
 							<div>
+								<RiCloseCircleLine size={50} display="flex" onClick={personalCloseModal} />
 								<MyDropzone />
-								<StUploadBtn onClick={saveImage}>Upload</StUploadBtn>
+
+								<StUploadBtn>Upload</StUploadBtn>
 							</div>
 						</StModalBox>
 					</StEditModal>
@@ -36,7 +29,7 @@ function MyModal({ editModal }) {
 	);
 }
 
-export default MyModal;
+export default PersonalDataEditModal;
 
 const StEditModal = styled.div`
 	position: fixed;

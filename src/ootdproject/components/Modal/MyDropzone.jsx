@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsFillCloudUploadFill } from 'react-icons/bs';
-import { GrClose } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -20,11 +19,11 @@ const MyDropzone = () => {
 
 			<STdropBoxTitle onClick={e => e.stopPropagation()}>
 				Drag & Drop
-				<GrClose
+				{/* <GrClose
 					onClick={() => {
 						navigate('/');
 					}}
-				/>
+				/> */}
 			</STdropBoxTitle>
 
 			{uploadedFiles.length === 0 && (
