@@ -26,7 +26,7 @@ function Home() {
 			<StCardCenter ref={stCardCenterRef}>
 				{data.map((item) => (
 					<div key={item.id}>
-						<OotdCard image={item.image} content={item.content} nickname={item.nickname} />
+						<OotdCard id={item.id} image={item.image} content={item.content} nickname={item.nickname} />
 					</div>
 				))}
 			</StCardCenter>

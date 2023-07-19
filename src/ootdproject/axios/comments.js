@@ -5,17 +5,19 @@ export const getComments = async (postId) => {
 		const response = await axios.get(`${process.env.REACT_APP_SERVER}/api/post/${postId}/comments`);
 		return response.data;
 	} catch (error) {
-		console.log("getComments axios error", error);
+		console.error("댓글 조회 실패:", error);
+		return [];
 	}
 };
 //댓글 작성 POST
-export const postComments = async (payload) => {
+export const postComments = async (postId) => {
 	try {
-		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post/{postId}/comment`, payload);
+		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post/${postId}/comment`);
 		console.log(response);
 		return response.data;
 	} catch (error) {
 		console.log("postComments axios error", error);
+		return [];
 	}
 };
 //댓글 삭제 DELETE
