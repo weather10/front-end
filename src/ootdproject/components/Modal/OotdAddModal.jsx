@@ -1,9 +1,7 @@
-
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { postPosts } from '../../axios/api';
+import { postBoard } from '../../axios/boardApi';
 import OotdAddDropZone from './OotdAddDropZone';
 
 function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
@@ -16,48 +14,37 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 			e.preventDefault();
 		}
 	};
-
 	const imgAndPostHandler = async () => {
 		try {
 			const token = document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
 			const headers = {
-				Authorization: `Bearer ${token}`,
+				Accept: '*/*',
+				Authorization: `${token}`,
+				'Content-Type': 'multipart/form-data',
 			};
 
 			const formData = new FormData();
 			formData.append('image', selectedImage);
-			formData.append('text', ootdText);
-
-			const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post`, formData);
-
-			postPosts({ image: selectedImage, content: ootdText });
-			navigate('/');
-			alert('게시글 작성 성공!');
-
-			console.log('서버 응답:', response.data);
-
-			// 성공적으로 전송한 후에 모달 닫기 등의 처리
+			formData.append('data', JSON.stringify({ content: ootdText, image: selectedImage }));
+			const response = await postBoard(formData, headers);
+			console.log('ootdaddmodal - response.data:', response.data); //실패
 			toggleOotdModal();
 		} catch (error) {
 			console.error('imgAndPost전송 실패:', error);
 		}
-
 	};
-
 	return (
 		<div>
 			{addModal && (
 				<>
-
 					<StBackGround>
 						<StModalBox>
-
 							<STdropBoxTitle>
 								<p>Drag & Drop</p>
 								<p>Write your OOTD</p>
 							</STdropBoxTitle>
 							<div onClick={e => e.stopPropagation()}>
-								<OotdAddDropZone onImageSelected={onImageSelected} />
+								<OotdAddDropZone onImageSelected={setSelectedImage} />
 							</div>
 							<div onClick={toggleOotdModal}>
 								<StWriteOotd
@@ -68,11 +55,9 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 							</div>
 							<div onClick={e => e.stopPropagation()}>
 								<StOotdUploadBtn onClick={imgAndPostHandler}>Upload</StOotdUploadBtn>
-
 							</div>
 						</StModalBox>
 					</StBackGround>
-
 				</>
 			)}
 		</div>
@@ -82,7 +67,6 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 export default OotdAddModal;
 
 const StBackGround = styled.div`
-
 	position: fixed;
 	display: flex;
 	align-items: center;
@@ -152,5 +136,4 @@ const StOotdUploadBtn = styled.button`
 		transform: scale(1.2);
 		cursor: pointer;
 	}
-
 `;

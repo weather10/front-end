@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { styled } from "styled-components";
+import React, { useState } from 'react';
+import { styled } from 'styled-components';
 
 function HourlyWeather() {
 	const slideCount = 4; // 슬라이드 개수
@@ -36,7 +36,8 @@ function HourlyWeather() {
 					style={{
 						width: `${(slideWidth + slideMargin) * slideCount}px`,
 						left: `-${currentIdx * slideWidth}px`,
-					}}>
+					}}
+				>
 					<FistChild>
 						<ShowImg>첫번째 슬라이드0시~6시</ShowImg>
 					</FistChild>
@@ -50,15 +51,13 @@ function HourlyWeather() {
 						<ShowImg>네번째 슬라이드18시~24시</ShowImg>
 					</LastChild>
 				</StSlides>
-				<p class='controller'>
+				<p>
 					{/* <!-- &lang: 왼쪽 방향 화살표
       &rang: 오른쪽 방향 화살표 --> */}
 					{/* <StSpan class='prev' onClick={handlePrevClick}>
 						&lang;
 					</StSpan> */}
-					<StSpan class='next' onClick={handleNextClick}>
-						&rang;
-					</StSpan>
+					<StSpan onClick={handleNextClick}>&rang;</StSpan>
 				</p>
 			</StSlideShow>
 		</>

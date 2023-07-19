@@ -1,41 +1,34 @@
-import React, { useRef } from "react";
-import OotdCard from "../components/home/OotdCard";
-import { styled } from "styled-components";
-import RightNavBar from "../components/home/RightNavBar";
+import React, { useEffect, useRef, useState } from 'react';
+import { styled } from 'styled-components';
+import { getBoard } from '../axios/boardApi';
+import OotdCard from '../components/home/OotdCard';
+import RightNavBar from '../components/home/RightNavBar';
 
 function Home() {
 	const stCardCenterRef = useRef();
+	const [data, setData] = useState([]);
+
+	//게시글 조회
+	const fetchBoard = async () => {
+		try {
+			const data = await getBoard();
+			console.log('게시글 조회 성공:', data);
+			setData(data);
+		} catch (error) {
+			console.error('게시글 조회 실패:', error);
+		}
+	};
+	useEffect(() => {
+		fetchBoard();
+	}, []);
 	return (
 		<StOotdContainer>
 			<StCardCenter ref={stCardCenterRef}>
-				{/* data: [
-					{
-						id: 1,
-						nickname: user,
-						content: react ㅁㅝㅅ같다.
-					},
-					{
-						id: 1,
-						nickname: user,
-						content: react ㅁㅝㅅ같다.
-					},
-					{
-						id: 1,
-						nickname: user,
-						content: react ㅁㅝㅅ같다.
-					},
-					{
-						id: 1,
-						nickname: user,
-						content: react ㅁㅝㅅ같다.
-					},
-				]
-				{
-					data.map
-				} */}
-				{/* nickname, content */}
-
-				<OotdCard />
+				{data.map(item => (
+					<div key={item.id}>
+						<OotdCard image={item.image} content={item.content} nickname={item.nickname} />
+					</div>
+				))}
 			</StCardCenter>
 			<RightNavBar stCardCenterRef={stCardCenterRef} />
 		</StOotdContainer>
@@ -63,3 +56,21 @@ const StCardCenter = styled.div`
 		display: none;
 	}
 `;
+
+// {
+// id: 9,
+// image: "https://ootdgram-bucket.s3.ap-northeast-2.amazonaws.com/post/524c0f69-a87c-43fc-827f-26c60ecfa740-277EDC3B576C7E9A1A.png",
+// content: "게시글 9",
+// createdAt: "2023-07-19T06:03:15.434741",
+// modifiedAt: "2023-07-19T06:03:15.434741",
+// commentList: [
+// {
+// id: 21,
+// content: "댓글1",
+// nickname: "1234567",
+// createdAt: "2023-07-19T06:04:51.73729",
+// modifiedAt: "2023-07-19T06:04:51.73729"
+// }
+// ],
+// nickname: "1234567"
+// },
