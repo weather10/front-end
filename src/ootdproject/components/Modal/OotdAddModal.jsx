@@ -21,7 +21,7 @@ function OotdAddlModal({ addModal }) {
 							<div>
 								<MyDropzone />
 								<StUploadBtn
-								// onClick={saveOotd}
+								// onClick={saveOotd}ㅛ
 								>
 									Upload
 								</StUploadBtn>

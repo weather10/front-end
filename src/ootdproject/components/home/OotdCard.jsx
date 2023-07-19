@@ -11,16 +11,23 @@ import Avatar from "./Avatar";
 import LikeButton from "./LikeButton";
 
 function OotdCard() {
+	//좋아요
 	const [like, setLike] = useState(false);
+
+	//게시글 더보기
 	const [moreContents, setMoreContents] = useState(true);
+
+	//댓글창 모달(댓글작성란)
 	const [openComments, setOpenComments] = useState(false);
 
+	//게시글 더보기핸들러
 	const moreViewHandler = () => {
 		setMoreContents((pre) => !pre);
 	};
 
-	const openCommentsHandler = () => {
-		setOpenComments(true);
+	//댓글창 모달핸들러
+	const toggleCommentsHandler = () => {
+		setOpenComments((pre) => !pre);
 	};
 
 	// useEffect(async () => {
@@ -106,7 +113,7 @@ function OotdCard() {
 							backgroundColor: "white",
 							cursor: "pointer",
 						}}
-						onClick={openCommentsHandler}>
+						onClick={toggleCommentsHandler}>
 						<StComment src={comment} alt='댓글' />
 					</button>
 				</div>
@@ -121,6 +128,7 @@ function OotdCard() {
 						}}>
 						UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design
 						resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
+						<StMoreDetailBtn onClick={moreViewHandler}>더보기</StMoreDetailBtn>
 					</div>
 				)}
 				{!moreContents && (
@@ -133,9 +141,8 @@ function OotdCard() {
 						resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
 					</div>
 				)}
-				<StMoreDetailBtn onClick={moreViewHandler}>더보기</StMoreDetailBtn>
 			</StOotdCardContainer>
-			<Comments openComments={openComments} />
+			<Comments openComments={openComments} toggleCommentsHandler={toggleCommentsHandler} />
 		</>
 	);
 }
