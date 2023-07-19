@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { BsFillCloudUploadFill } from 'react-icons/bs';
+import React, { useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { BsFillCloudUploadFill } from "react-icons/bs";
 // import { GrClose } from 'react-icons/gr';
-import { useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
 
 const OotdAddDropZone = ({ toggleOotdModal, setSelectedImage }) => {
-	//자식, uploadedFiles를 저쪽에 넘겨줘야하잖아요!
-	const [uploadedFiles, setUploadedFiles] = useState('');
+	//ootdadddropzone은 자식컴포넌트, 부모인 ootdaddmodal에 uploadedFiles를 저쪽에 넘겨줘야하잖아요!
+	const [uploadedFiles, setUploadedFiles] = useState("");
 	useEffect(() => {
 		setSelectedImage(uploadedFiles);
 	}, [uploadedFiles]);
 
-	const onDrop = acceptedFiles => {
+	const onDrop = (acceptedFiles) => {
 		setUploadedFiles(acceptedFiles);
 		console.log(acceptedFiles);
 	};
@@ -25,26 +25,26 @@ const OotdAddDropZone = ({ toggleOotdModal, setSelectedImage }) => {
 
 			{uploadedFiles.length === 0 && (
 				<StImageUl>
-					<BsFillCloudUploadFill size="50px" color="pink" />
+					<BsFillCloudUploadFill size='50px' color='pink' />
 				</StImageUl>
 			)}
 
 			{uploadedFiles.length === 1 && (
 				<div>
-					{uploadedFiles.map(file => (
+					{uploadedFiles.map((file) => (
 						<StShowImg>
 							<img
 								key={file.name}
 								src={URL.createObjectURL(file)}
 								alt={file.name}
 								style={{
-									minWidth: '480px',
-									maxWidth: '480px',
-									minHeight: '380px',
-									maxHeight: '380px',
-									display: 'flex',
-									justifyContent: 'center',
-									alignContent: 'center',
+									minWidth: "480px",
+									maxWidth: "480px",
+									minHeight: "380px",
+									maxHeight: "380px",
+									display: "flex",
+									justifyContent: "center",
+									alignContent: "center",
 								}}
 							/>
 						</StShowImg>

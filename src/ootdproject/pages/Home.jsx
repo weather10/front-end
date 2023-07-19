@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { styled } from 'styled-components';
-import { getBoard } from '../axios/boardApi';
-import OotdCard from '../components/home/OotdCard';
-import RightNavBar from '../components/home/RightNavBar';
+import React, { useEffect, useRef, useState } from "react";
+import { styled } from "styled-components";
+import { getBoard } from "../axios/boardApi";
+import OotdCard from "../components/home/OotdCard";
+import RightNavBar from "../components/home/RightNavBar";
 
 function Home() {
 	const stCardCenterRef = useRef();
@@ -12,10 +12,10 @@ function Home() {
 	const fetchBoard = async () => {
 		try {
 			const data = await getBoard();
-			console.log('게시글 조회 성공:', data);
+			console.log("게시글 조회 성공:", data);
 			setData(data);
 		} catch (error) {
-			console.error('게시글 조회 실패:', error);
+			console.error("게시글 조회 실패:", error);
 		}
 	};
 	useEffect(() => {
@@ -24,7 +24,7 @@ function Home() {
 	return (
 		<StOotdContainer>
 			<StCardCenter ref={stCardCenterRef}>
-				{data.map(item => (
+				{data.map((item) => (
 					<div key={item.id}>
 						<OotdCard image={item.image} content={item.content} nickname={item.nickname} />
 					</div>
