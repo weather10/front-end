@@ -51,11 +51,11 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 
 					<StBackGround>
 						<StModalBox>
+
 							<STdropBoxTitle>
 								<p>Drag & Drop</p>
 								<p>Write your OOTD</p>
 							</STdropBoxTitle>
-
 							<div onClick={e => e.stopPropagation()}>
 								<OotdAddDropZone onImageSelected={onImageSelected} />
 							</div>
@@ -68,6 +68,7 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 							</div>
 							<div onClick={e => e.stopPropagation()}>
 								<StOotdUploadBtn onClick={imgAndPostHandler}>Upload</StOotdUploadBtn>
+
 							</div>
 						</StModalBox>
 					</StBackGround>

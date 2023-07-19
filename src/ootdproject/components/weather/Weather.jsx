@@ -6,7 +6,7 @@ import sunny from "../../icon/sunny.png";
 import wind from "../../icon/wind.png";
 import "../../styles/fonts/font.css";
 import WeatherDetail from "./WeatherDetail";
-import DayOfWeek from "./DayOfWeek";
+import HourlyWeather from "./HourlyWeather";
 
 function Weather() {
 	return (
@@ -28,7 +28,7 @@ function Weather() {
 					<WeatherDetail icon={wind} weatherText='풍속' index='19km/h' />
 					<WeatherDetail icon={humidity} weatherText='습도' index='68cm' />
 				</StWeatherDetailBox>
-				<DayOfWeek />
+				<HourlyWeather />
 			</StWeatherContainer>
 		</>
 	);
