@@ -1,32 +1,21 @@
-import React, { useState } from "react";
-import { GrClose } from "react-icons/gr";
-import { styled } from "styled-components";
-import Avatar from "../home/Avatar";
-import MyDropzone, { StShowImg, StUploadBtn } from "./MyDropzone";
 
-function PersonalDataEditModal({ editModal }) {
-	const [personalClose, setperconalClose] = useState(false);
+import React from 'react';
+import { styled } from 'styled-components';
+import PersonalDropZone from './PersonalDropZone';
 
-	const saveImage = () => {
-		personalCloseModal();
-		<Avatar>
-			<StShowImg />
-		</Avatar>;
-	};
-	const personalCloseModal = () => {
-		setperconalClose(true);
-	};
+function PersonalDataEditModal({ editModal, toggleEditModal }) {
 
 	return (
 		<div>
 			{editModal && (
 				<>
 					<StEditModal>
-						<GrClose size={20} cursor='pointer' onClick={personalCloseModal} />
-						<StModalBox>
+
+						<StModalBox onClick={e => e.stopPropagation()}>
 							<div>
-								<MyDropzone />
-								<StUploadBtn onClick={saveImage}>Upload</StUploadBtn>
+								<PersonalDropZone toggleEditModal={toggleEditModal} />
+								<StUploadBtn>Upload</StUploadBtn>
+
 							</div>
 						</StModalBox>
 					</StEditModal>
@@ -58,4 +47,24 @@ const StModalBox = styled.div`
 	border-radius: 12px;
 	align-items: center;
 	justify-content: center;
+`;
+
+
+const StUploadBtn = styled.button`
+	font-family: 'LeferiPoint-SpecialItalicA';
+	font-weight: 600;
+	font-size: 20px;
+	border: none;
+	border-radius: 100px;
+	margin-top: 30px;
+	padding-top: 6px;
+	background: linear-gradient(45deg, #1fa0f0, #e67bcd, #ffffff, #a7d2ec);
+	color: black;
+	width: 500px;
+	height: 50px;
+	&:hover {
+		letter-spacing: 5px;
+		transform: scale(1.2);
+		cursor: pointer;
+	}
 `;

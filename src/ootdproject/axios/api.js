@@ -1,29 +1,36 @@
-import axios from "axios";
+
+import axios from 'axios';
+
 // export const instance = axios.create({
 // 	baseURL: "http://ec2-54-180-120-109.ap-northeast-2.compute.amazonaws.com",
 // });
 
 const headers = {
-	Accept: "*/*", // 돌려받는 거 전부 받을 수 있게
-	authorization: "", // 엑세스 토큰 넣는 곳
-	"Content-Type": "application/json", // 객체 보낼 때는 application/json
+	Accept: '*/*', // 돌려받는 거 전부 받을 수 있게
+	authorization: '', // 엑세스 토큰 넣는 곳
+	'Content-Type': 'application/json', // 객체 보낼 때는 application/json
 	// "Content-Type": "multipart/form-data", // FormData는 이걸로
 	// 헤더에 넣는 방법은 헤더 키값 : 벨류값
 	// headerName : headerValue
 };
 
 // 회원가입 POST
-export const postSignUp = async (payload) => {
+
+export const postSignUp = async payload => {
 	try {
 		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/signup`, payload);
 		return response.data;
 	} catch (error) {
-		console.log("api쪽로직 error", error);
+		console.log('api쪽로직 error', error);
+
 	}
 };
 
 // 로그인 POST
-export const postSignIn = async (payload) => {
+
+export const postSignIn = async payload => {
+
+
 	try {
 		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/login`, payload);
 		console.log(response);
@@ -35,8 +42,35 @@ export const postSignIn = async (payload) => {
 	}
 };
 
+// 게시글 조회
+const getPosts = async () => {
+	try {
+		const response = await axios.get(`${process.env.REACT_APP_SERVER}/api/posts`);
+		console.log('data', response.data);
+		return response.data;
+	} catch (error) {
+		console.error('게시글조회error', error);
+	}
+};
+
+// {
+// 	”image” : “image”,
+// 	”content” : “content”,
+// 	”weather” : “weather”
+// 	}
+// 게시글 작성하기 POST
+export const postPosts = async payload => {
+	try {
+		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post`);
+		console.log('data', response.data);
+		return response.data;
+	} catch (error) {
+		console.error('게시글조회error', error);
+	}
+};
+
 // 게시글 좋아요 POST
-export const postLike = async (payload) => {
+export const postLike = async payload => {
 	try {
 		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post/{postId}/like`, payload);
 		return response.data;
@@ -46,20 +80,13 @@ export const postLike = async (payload) => {
 };
 
 // 게시글 좋아요 취소 PUT
-export const putLikeCancel = async (payload) => {
+export const putLikeCancel = async payload => {
 	try {
 		const response = await axios.put(`${process.env.REACT_APP_SERVER}/api/post/{postId}/like`, payload);
 		return response.data;
 	} catch (error) {
 		throw error;
 	}
-};
-
-// 게시글 조회
-const getPosts = async () => {
-	const response = await axios.get(`${process.env.REACT_APP_SERVER}/api/posts`);
-	console.log("data", response.data);
-	return response.data;
 };
 
 export { getPosts };

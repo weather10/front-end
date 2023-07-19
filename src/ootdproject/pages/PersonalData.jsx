@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { FaCheck } from "react-icons/fa";
-import { GrClose } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
-import avatar from "../icon/basicAvatar.png";
-import { StOotdGramContainer, StSignInput } from "./SignIn";
-import PersonalDataEditModal from "../components/Modal/PersonalDataEditModal";
+
+import React, { useState } from 'react';
+import { FaCheck } from 'react-icons/fa';
+import { GrClose } from 'react-icons/gr';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import PersonalDataEditModal from '../components/Modal/PersonalDataEditModal';
+import avatar from '../icon/basicAvatar.png';
+import { StOotdGramContainer, StSignInput } from './SignIn';
+
 function PersonalData() {
 	const navigate = useNavigate();
 	const navigateToHome = () => {
@@ -13,50 +15,59 @@ function PersonalData() {
 	};
 
 	const [editModal, setEditModal] = useState(false);
+	// const [personalClose, setPersonalClose] = useState(false);
 
-	const openModal = () => {
-		setEditModal(true);
+	// const personalCloseModal = () => {
+	// 	setPersonalClose(true);
+	// };
+
+	const toggleEditModal = () => {
+		setEditModal(pre => !pre);
 	};
 
-	const [name, setName] = useState("");
+	const [name, setName] = useState('');
 
 	return (
 		<StOotdGramContainer>
 			<div
 				style={{
-					display: "flex",
-					justifyContent: "space-between",
-					alignItems: "center",
-					width: "320px",
-					marginTop: "100px",
-				}}>
+					display: 'flex',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					width: '320px',
+					marginTop: '100px',
+				}}
+			>
 				<GrClose
 					size={20}
 					style={{
-						cursor: "pointer",
+						cursor: 'pointer',
 					}}
 					onClick={navigateToHome}
 				/>
 				<StFont> Edit profile</StFont>
 				<FaCheck
 					size={20}
-					color='rgb(72, 132, 238)'
-					cursor='pointer'
+					color="rgb(72, 132, 238)"
+					cursor="pointer"
 					// onClick={서버에 사진 저장하기}
 				/>
 			</div>
-			<img src={avatar} alt='아바타' />
-			<StFont $fontColor={"blue"} style={{ cursor: "pointer" }} onClick={openModal}>
-				{" "}
-				Change profile photo{" "}
+			<img src={avatar} alt="아바타" />
+			<StFont $fontColor={'blue'} style={{ cursor: 'pointer' }} onClick={toggleEditModal}>
+				{' '}
+				Change profile photo{' '}
 			</StFont>
 
-			<StSignInput placeholder='NickName' value={name} onChange={(e) => setName(e.target.value)} />
+			<StSignInput placeholder="NickName" value={name} onChange={e => setName(e.target.value)} />
 			<div
 				style={{
-					height: "500px",
-				}}></div>
-			<PersonalDataEditModal editModal={editModal} />
+
+					height: '500px',
+				}}
+			></div>
+			<PersonalDataEditModal editModal={editModal} toggleEditModal={toggleEditModal} />
+
 		</StOotdGramContainer>
 	);
 }
@@ -64,19 +75,19 @@ function PersonalData() {
 export default PersonalData;
 
 const StFont = styled.p`
-	font-family: "GowunDodum-Regular";
+	font-family: 'GowunDodum-Regular';
 	font-weight: 700;
 
-	${(props) => fontColorHandler(props.$fontColor)};
+	${props => fontColorHandler(props.$fontColor)};
 
 	${({ $fontColor }) => fontColorHandler($fontColor)};
 `;
 
-const fontColorHandler = (color) => {
+const fontColorHandler = color => {
 	switch (color) {
-		case "blue":
+		case 'blue':
 			return `color:rgb(72, 132, 238);`;
 		default:
-			return "";
+			return '';
 	}
 };
