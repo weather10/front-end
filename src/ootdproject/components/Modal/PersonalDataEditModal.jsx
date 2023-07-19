@@ -1,24 +1,16 @@
 import React from 'react';
-import { RiCloseCircleLine } from 'react-icons/ri';
 import { styled } from 'styled-components';
-import MyDropzone, { StUploadBtn } from './MyDropzone';
-function PersonalDataEditModal({ editModal, personalCloseModal }) {
-	// const [personalClose, setPersonalClose] = useState(false);
+import PersonalDropZone from './PersonalDropZone';
 
-	// const personalCloseModal = () => {
-	// 	setPersonalClose(true);
-	// };
-
+function PersonalDataEditModal({ editModal, toggleEditModal }) {
 	return (
 		<div>
 			{editModal && (
 				<>
 					<StEditModal>
-						<StModalBox>
+						<StModalBox onClick={e => e.stopPropagation()}>
 							<div>
-								<RiCloseCircleLine size={50} display="flex" onClick={personalCloseModal} />
-								<MyDropzone />
-
+								<PersonalDropZone toggleEditModal={toggleEditModal} />
 								<StUploadBtn>Upload</StUploadBtn>
 							</div>
 						</StModalBox>
@@ -51,4 +43,23 @@ const StModalBox = styled.div`
 	border-radius: 12px;
 	align-items: center;
 	justify-content: center;
+`;
+
+const StUploadBtn = styled.button`
+	font-family: 'LeferiPoint-SpecialItalicA';
+	font-weight: 600;
+	font-size: 20px;
+	border: none;
+	border-radius: 100px;
+	margin-top: 30px;
+	padding-top: 6px;
+	background: linear-gradient(45deg, #1fa0f0, #e67bcd, #ffffff, #a7d2ec);
+	color: black;
+	width: 500px;
+	height: 50px;
+	&:hover {
+		letter-spacing: 5px;
+		transform: scale(1.2);
+		cursor: pointer;
+	}
 `;

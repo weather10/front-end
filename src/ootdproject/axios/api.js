@@ -46,6 +46,22 @@ const getPosts = async () => {
 	}
 };
 
+// {
+// 	”image” : “image”,
+// 	”content” : “content”,
+// 	”weather” : “weather”
+// 	}
+// 게시글 작성하기 POST
+export const postPosts = async payload => {
+	try {
+		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post`);
+		console.log('data', response.data);
+		return response.data;
+	} catch (error) {
+		console.error('게시글조회error', error);
+	}
+};
+
 // 게시글 좋아요 POST
 export const postLike = async payload => {
 	try {

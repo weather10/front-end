@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsFillCloudUploadFill } from 'react-icons/bs';
+// import { GrClose } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-const MyDropzone = () => {
+const OotdAddDropZone = ({ toggleOotdModal }) => {
 	const [uploadedFiles, setUploadedFiles] = useState('');
 	const onDrop = acceptedFiles => {
 		setUploadedFiles(acceptedFiles);
@@ -16,19 +17,15 @@ const MyDropzone = () => {
 	return (
 		<div {...getRootProps()}>
 			<input {...getInputProps()} />
-
+			{/* 
 			<STdropBoxTitle onClick={e => e.stopPropagation()}>
 				Drag & Drop
-				{/* <GrClose
-					onClick={() => {
-						navigate('/');
-					}}
-				/> */}
-			</STdropBoxTitle>
+				<GrClose onClick={toggleOotdModal} />
+			</STdropBoxTitle> */}
 
 			{uploadedFiles.length === 0 && (
 				<StImageUl>
-					<BsFillCloudUploadFill size="100px" />
+					<BsFillCloudUploadFill size="50px" color="pink" />
 				</StImageUl>
 			)}
 
@@ -41,8 +38,10 @@ const MyDropzone = () => {
 								src={URL.createObjectURL(file)}
 								alt={file.name}
 								style={{
-									maxWidth: '500px',
-									maxHeight: '500px',
+									minWidth: '480px',
+									maxWidth: '480px',
+									minHeight: '380px',
+									maxHeight: '380px',
 									display: 'flex',
 									justifyContent: 'center',
 									alignContent: 'center',
@@ -52,56 +51,36 @@ const MyDropzone = () => {
 					))}
 				</div>
 			)}
+			{/* <StUploadBtn onClick={e => e.stopPropagation()}>Upload</StUploadBtn> */}
 			{/* <StUploadBtn onClick={e => e.stopPropagation()}>Upload</StUploadBtn> 여기에 버튼 넣어서 사용하시면 됩니당 */}
 		</div>
 	);
 };
-export default MyDropzone;
+export default OotdAddDropZone;
 
-const STdropBoxTitle = styled.div`
-	font-family: 'LeferiPoint-SpecialItalicA';
-	font-size: 35px;
-	font-weight: 900;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 15px;
-`;
+// const STdropBoxTitle = styled.div`
+// 	font-family: 'LeferiPoint-SpecialItalicA';
+// 	font-size: 35px;
+// 	font-weight: 900;
+// 	display: flex;
+// 	justify-content: space-between;
+// 	align-items: center;
+// 	margin-bottom: 15px;
+// `;
 
+// 업로드하는곳
 const StImageUl = styled.div`
-	width: 500px;
-	height: 500px;
-	/* border: 3px solid #a7d2ec; */
+	width: 480px;
+	height: 380px;
 	background-color: rgba(255, 255, 255, 0.492);
-	border-radius: 15%;
-	/* border-style: dashed; */
 	display: flex;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
+	border: 12px ridge rgba(255, 202, 244, 0.298);
 `;
 
 export const StShowImg = styled.div`
-	/* background-color: pink; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
-`;
-
-export const StUploadBtn = styled.button`
-	font-family: 'LeferiPoint-SpecialItalicA';
-	font-weight: 600;
-	font-size: 20px;
-	border: none;
-	border-radius: 100px;
-	margin-top: 30px;
-	padding-top: 6px;
-	background: linear-gradient(45deg, #1fa0f0, #e67bcd, #ffffff, #a7d2ec);
-	color: black;
-	width: 500px;
-	height: 50px;
-	&:hover {
-		letter-spacing: 5px;
-		transform: scale(1.2);
-		cursor: pointer;
-	}
 `;

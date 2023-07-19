@@ -13,14 +13,14 @@ function PersonalData() {
 	};
 
 	const [editModal, setEditModal] = useState(false);
-	const [personalClose, setPersonalClose] = useState(false);
+	// const [personalClose, setPersonalClose] = useState(false);
 
-	const personalCloseModal = () => {
-		setPersonalClose(true);
-	};
+	// const personalCloseModal = () => {
+	// 	setPersonalClose(true);
+	// };
 
-	const openModal = () => {
-		setEditModal(true);
+	const toggleEditModal = () => {
+		setEditModal(pre => !pre);
 	};
 
 	const [name, setName] = useState('');
@@ -52,7 +52,7 @@ function PersonalData() {
 				/>
 			</div>
 			<img src={avatar} alt="아바타" />
-			<StFont $fontColor={'blue'} style={{ cursor: 'pointer' }} onClick={openModal}>
+			<StFont $fontColor={'blue'} style={{ cursor: 'pointer' }} onClick={toggleEditModal}>
 				{' '}
 				Change profile photo{' '}
 			</StFont>
@@ -63,8 +63,7 @@ function PersonalData() {
 					height: '500px',
 				}}
 			></div>
-
-			<PersonalDataEditModal editModal={editModal} personalCloseModal={personalCloseModal} />
+			<PersonalDataEditModal editModal={editModal} toggleEditModal={toggleEditModal} />
 		</StOotdGramContainer>
 	);
 }

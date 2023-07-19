@@ -5,7 +5,7 @@ import { styled } from 'styled-components';
 import add from '../../icon/add.png';
 import home from '../../icon/home.png';
 import people from '../../icon/people.png';
-import OotdAddlModal from '../Modal/OotdAddModal';
+import OotdAddModal from '../Modal/OotdAddModal';
 
 function NavBarButton({ stCardCenterRef }) {
 	const scrollToTop = () => {
@@ -17,8 +17,8 @@ function NavBarButton({ stCardCenterRef }) {
 	const navigate = useNavigate();
 	const [addModal, setAddModal] = useState(false);
 
-	const openOotdModal = () => {
-		setAddModal(true);
+	const toggleOotdModal = () => {
+		setAddModal(pre => !pre);
 	};
 
 	return (
@@ -40,11 +40,10 @@ function NavBarButton({ stCardCenterRef }) {
 				</SingUpButton>
 			</StDiv>
 			<StDiv>
-				<AddButton onClick={openOotdModal}>
+				<AddButton onClick={toggleOotdModal}>
 					<AddIcon src={add} alt="게시물올리기버튼" />
-
 					<StSpan>ootd 올리기</StSpan>
-					<OotdAddlModal addModal={addModal} />
+					<OotdAddModal addModal={addModal} toggleOotdModal={toggleOotdModal} />
 				</AddButton>
 			</StDiv>
 			<StDiv>
