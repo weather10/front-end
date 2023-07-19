@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import yellowGirl from "../../icon/yellowGirl.jpg";
 import { GrClose } from "react-icons/gr";
 import Avatar from "../home/Avatar";
 import basic from "../../icon/basicAvatar.png";
+import { getComments } from "../../axios/comments";
 
 //openComments는 OotdCard에 있는 댓글아이콘(버튼)을 클릭했을때 state의 변한 값임!
 //toggleCommentsHandler는 Ootd에서 실행되는 함수인데 여기서 온클릭을 했을때 바깥에 있는 함수에까지 전달되도록 props를 받은것!
@@ -12,6 +13,21 @@ function Comments({ openComments, toggleCommentsHandler }) {
 	const textmsg = "ㄴㅇ럼니ㅏ어림나ㅓ림너리ㅏㅁㄴ어라ㅣㄴ머하ㅣㄴ멍ㅎ;멓ㄴ;함ㄴㅇㅎ";
 	const dateTimeString = "2023-07-16T03:32:51.078944";
 	const result = dateTimeString.replace(/T.*/, "");
+
+	const [data, setData] = useState();
+
+	const fetchComments = async () => {
+		try {
+			const data = await getComments();
+			console.log("댓글 조회 성공:", data);
+			setData(data);
+		} catch (error) {
+			console.error("댓글 조회 실패:", error);
+		}
+	};
+	useEffect(() => {
+		fetchComments();
+	}, []);
 
 	const onSubmitHandler = (event) => {
 		event.preventDefault(); //있으면 좋은건가용? - 폼태그 액션
@@ -31,21 +47,22 @@ function Comments({ openComments, toggleCommentsHandler }) {
 									<GrClose onClick={toggleCommentsHandler} />
 								</StButtonBox>
 								<StGetCommentsBox>
-									{/* map 돌려야 함  */}
-									<UserComment>
-										<Avatar image={basic} type='homeAvatar' />
-										<StTextBox>
-											<StIdText>
-												{nickname}
-												{textmsg}
-											</StIdText>
-											<StDate>{result}</StDate>
-										</StTextBox>
-										<StUserEditCancelBtnBox>
-											<StUserBtn>수정</StUserBtn>
-											<StUserBtn>삭제</StUserBtn>
-										</StUserEditCancelBtnBox>
-									</UserComment>
+									{data.map((item) => (
+										<UserComment>
+											<Avatar image={item.userImage} type='homeAvatar' />
+											<StTextBox>
+												<StIdText>
+													{item.nickname}
+													{item.content}
+												</StIdText>
+												<StDate>{item.createdAt}</StDate>
+											</StTextBox>
+											<StUserEditCancelBtnBox>
+												<StUserBtn>수정</StUserBtn>
+												<StUserBtn>삭제</StUserBtn>
+											</StUserEditCancelBtnBox>
+										</UserComment>
+									))}
 								</StGetCommentsBox>
 								<StInputBox>
 									<form>
