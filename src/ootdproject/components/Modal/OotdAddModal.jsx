@@ -4,9 +4,10 @@ import { styled } from 'styled-components';
 import { postBoard } from '../../axios/boardApi';
 import OotdAddDropZone from './OotdAddDropZone';
 
-function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
+function OotdAddModal({ addModal, toggleOotdModal, onImageSelected, setUploadedFiles }) {
 	const [ootdText, setOotdText] = useState('');
-	const [selectedImage, setSelectedImage] = useState(null);
+	const [selectedImage, setSelectedImage] = useState();
+
 	const navigate = useNavigate();
 	const handleKeyDown = e => {
 		if (e.key === ' ') {
@@ -24,10 +25,24 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 			};
 
 			const formData = new FormData();
-			formData.append('image', selectedImage);
-			formData.append('data', JSON.stringify({ content: ootdText, image: selectedImage }));
+			formData.append('image', JSON.stringify({ image: selectedImage }));
+			formData.append('content', JSON.stringify({ content: ootdText }));
 			const response = await postBoard(formData, headers);
 			console.log('ootdaddmodal - response.data:', response.data); //실패
+
+			// const obj = {
+			// 	image: 'selectedImage',
+			// 	content: 'ootdText',
+			// };
+
+			// const formData = new FormData();
+			// Object.entries(obj).forEach(item => formData.append(item[0], item[1]));
+
+			// let entries = formData.entries();
+			// for (const pair of entries) {
+			// 	console.log(pair[0] + ', ' + pair[1]);
+			// }
+
 			toggleOotdModal();
 		} catch (error) {
 			console.error('imgAndPost전송 실패:', error);
@@ -44,7 +59,10 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 								<p>Write your OOTD</p>
 							</STdropBoxTitle>
 							<div onClick={e => e.stopPropagation()}>
-								<OotdAddDropZone onImageSelected={setSelectedImage} />
+								<OotdAddDropZone
+									onImageSelected={setUploadedFiles}
+									setSelectedImage={setSelectedImage}
+								/>
 							</div>
 							<div onClick={toggleOotdModal}>
 								<StWriteOotd
