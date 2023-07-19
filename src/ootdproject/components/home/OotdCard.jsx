@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useMutation } from 'react-query';
 import { styled } from 'styled-components';
@@ -9,6 +10,7 @@ import rainy from '../../icon/rainy.png';
 import Comments from '../Modal/Comments';
 import Avatar from './Avatar';
 import LikeButton from './LikeButton';
+
 
 function OotdCard() {
 	const [like, setLike] = useState(false);
@@ -39,18 +41,22 @@ function OotdCard() {
 
 	//const [mutate, { data, loading, error }] = useMutation(MUTATION_QUERY);
 	const postLikeMutation = useMutation(postLike, {
+
 		onSuccess: data => {
 			// 어쩌고
 		},
 		onError: err => {
 			console.log('ootdCard에러', err.message);
+
 		},
 	});
 
 	const toggleLike = () => {
 		setLike(!like);
 		postLikeMutation.mutate({ like });
+
 		console.log('toggleLike', like);
+
 	};
 
 	return (

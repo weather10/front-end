@@ -1,4 +1,6 @@
+
 import axios from 'axios';
+
 // export const instance = axios.create({
 // 	baseURL: "http://ec2-54-180-120-109.ap-northeast-2.compute.amazonaws.com",
 // });
@@ -13,17 +15,22 @@ const headers = {
 };
 
 // 회원가입 POST
+
 export const postSignUp = async payload => {
 	try {
 		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/signup`, payload);
 		return response.data;
 	} catch (error) {
 		console.log('api쪽로직 error', error);
+
 	}
 };
 
 // 로그인 POST
+
 export const postSignIn = async payload => {
+
+
 	try {
 		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/login`, payload);
 		console.log(response);
@@ -35,7 +42,7 @@ export const postSignIn = async payload => {
 	}
 };
 
-// 게시글 조회 GET
+// 게시글 조회
 const getPosts = async () => {
 	try {
 		const response = await axios.get(`${process.env.REACT_APP_SERVER}/api/posts`);

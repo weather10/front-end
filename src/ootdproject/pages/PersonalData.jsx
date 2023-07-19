@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 import { GrClose } from 'react-icons/gr';
@@ -6,6 +7,7 @@ import { styled } from 'styled-components';
 import PersonalDataEditModal from '../components/Modal/PersonalDataEditModal';
 import avatar from '../icon/basicAvatar.png';
 import { StOotdGramContainer, StSignInput } from './SignIn';
+
 function PersonalData() {
 	const navigate = useNavigate();
 	const navigateToHome = () => {
@@ -60,10 +62,12 @@ function PersonalData() {
 			<StSignInput placeholder="NickName" value={name} onChange={e => setName(e.target.value)} />
 			<div
 				style={{
+
 					height: '500px',
 				}}
 			></div>
 			<PersonalDataEditModal editModal={editModal} toggleEditModal={toggleEditModal} />
+
 		</StOotdGramContainer>
 	);
 }

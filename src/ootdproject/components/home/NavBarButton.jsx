@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { HiPhotograph } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +7,7 @@ import add from '../../icon/add.png';
 import home from '../../icon/home.png';
 import people from '../../icon/people.png';
 import OotdAddModal from '../Modal/OotdAddModal';
+
 
 function NavBarButton({ stCardCenterRef }) {
 	const scrollToTop = () => {
@@ -17,8 +19,10 @@ function NavBarButton({ stCardCenterRef }) {
 	const navigate = useNavigate();
 	const [addModal, setAddModal] = useState(false);
 
+
 	const toggleOotdModal = () => {
 		setAddModal(pre => !pre);
+
 	};
 
 	return (
@@ -40,10 +44,12 @@ function NavBarButton({ stCardCenterRef }) {
 				</SingUpButton>
 			</StDiv>
 			<StDiv>
+
 				<AddButton onClick={toggleOotdModal}>
 					<AddIcon src={add} alt="게시물올리기버튼" />
 					<StSpan>ootd 올리기</StSpan>
 					<OotdAddModal addModal={addModal} toggleOotdModal={toggleOotdModal} />
+
 				</AddButton>
 			</StDiv>
 			<StDiv>

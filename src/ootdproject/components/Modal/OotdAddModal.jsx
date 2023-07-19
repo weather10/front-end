@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -40,12 +41,14 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 		} catch (error) {
 			console.error('imgAndPost전송 실패:', error);
 		}
+
 	};
 
 	return (
 		<div>
 			{addModal && (
 				<>
+
 					<StBackGround>
 						<StModalBox>
 							<STdropBoxTitle>
@@ -68,6 +71,7 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 							</div>
 						</StModalBox>
 					</StBackGround>
+
 				</>
 			)}
 		</div>
@@ -77,6 +81,7 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected }) {
 export default OotdAddModal;
 
 const StBackGround = styled.div`
+
 	position: fixed;
 	display: flex;
 	align-items: center;
@@ -90,6 +95,7 @@ const StBackGround = styled.div`
 
 const StModalBox = styled.div`
 	display: flex;
+
 	position: relative;
 	background-color: rgba(255, 255, 255, 0.875);
 	width: 900px;
@@ -145,4 +151,5 @@ const StOotdUploadBtn = styled.button`
 		transform: scale(1.2);
 		cursor: pointer;
 	}
+
 `;

@@ -1,17 +1,21 @@
+
 import React from 'react';
 import { styled } from 'styled-components';
 import PersonalDropZone from './PersonalDropZone';
 
 function PersonalDataEditModal({ editModal, toggleEditModal }) {
+
 	return (
 		<div>
 			{editModal && (
 				<>
 					<StEditModal>
+
 						<StModalBox onClick={e => e.stopPropagation()}>
 							<div>
 								<PersonalDropZone toggleEditModal={toggleEditModal} />
 								<StUploadBtn>Upload</StUploadBtn>
+
 							</div>
 						</StModalBox>
 					</StEditModal>
@@ -44,6 +48,7 @@ const StModalBox = styled.div`
 	align-items: center;
 	justify-content: center;
 `;
+
 
 const StUploadBtn = styled.button`
 	font-family: 'LeferiPoint-SpecialItalicA';
