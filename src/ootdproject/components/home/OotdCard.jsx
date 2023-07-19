@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useMutation } from 'react-query';
-import { styled } from 'styled-components';
-import { postLike } from '../../axios/boardApi';
-import basicAvatar from '../../icon/basicAvatar.png';
-import comment from '../../icon/comment.png';
-import rainy from '../../icon/rainy.png';
-import Comments from '../Modal/Comments';
-import Avatar from './Avatar';
-import LikeButton from './LikeButton';
+import React, { useState } from "react";
+import { useMutation } from "react-query";
+import { styled } from "styled-components";
+import { postLike } from "../../axios/boardApi";
+import basicAvatar from "../../icon/basicAvatar.png";
+import comment from "../../icon/comment.png";
+import rainy from "../../icon/rainy.png";
+import Comments from "../Modal/Comments";
+import Avatar from "./Avatar";
+import LikeButton from "./LikeButton";
 
-function OotdCard({ image, content, nickname }) {
+function OotdCard({ image, content, nickname, id }) {
 	//좋아요
 	const [like, setLike] = useState(false);
 
@@ -21,12 +21,12 @@ function OotdCard({ image, content, nickname }) {
 
 	//게시글 더보기핸들러
 	const moreViewHandler = () => {
-		setMoreContents(pre => !pre);
+		setMoreContents((pre) => !pre);
 	};
 
 	//댓글창 모달핸들러
 	const toggleCommentsHandler = () => {
-		setOpenComments(pre => !pre);
+		setOpenComments((pre) => !pre);
 	};
 
 	// useEffect(async () => {
@@ -45,11 +45,11 @@ function OotdCard({ image, content, nickname }) {
 
 	//const [mutate, { data, loading, error }] = useMutation(MUTATION_QUERY);
 	const postLikeMutation = useMutation(postLike, {
-		onSuccess: data => {
+		onSuccess: (data) => {
 			// 어쩌고
 		},
-		onError: err => {
-			console.log('ootdCard에러', err.message);
+		onError: (err) => {
+			console.log("ootdCard에러", err.message);
 		},
 	});
 
@@ -57,7 +57,7 @@ function OotdCard({ image, content, nickname }) {
 		setLike(!like);
 		postLikeMutation.mutate({ like });
 
-		console.log('toggleLike', like);
+		console.log("toggleLike", like);
 	};
 
 	return (
@@ -66,89 +66,81 @@ function OotdCard({ image, content, nickname }) {
 				<StCardHead>
 					<div
 						style={{
-							marginLeft: '-30px',
-							marginRight: '260px',
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-							gap: '10px',
-						}}
-					>
-						<Avatar image={basicAvatar} type="homeAvatar" />
+							marginLeft: "-30px",
+							marginRight: "260px",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							gap: "10px",
+						}}>
+						<Avatar image={basicAvatar} type='homeAvatar' />
 						<div
 							style={{
-								width: '50px',
-							}}
-						>
+								width: "50px",
+							}}>
 							{nickname}
 						</div>
 					</div>
-					<WeatherIcon src={rainy} alt="ootd-weather-icon" />
+					<WeatherIcon src={rainy} alt='ootd-weather-icon' />
 				</StCardHead>
-				<div className="card-img">
-					<MainOotdImg src={image} alt="userImage" />
+				<div className='card-img'>
+					<MainOotdImg src={image} alt='userImage' />
 				</div>
 				<div
-					className="like-comments-icon-container"
-					style={{ display: 'flex', width: '340px', marginTop: 'px' }}
-				>
+					className='like-comments-icon-container'
+					style={{ display: "flex", width: "340px", marginTop: "px" }}>
 					<div
 						style={{
-							marginLeft: '-40px',
-							marginRight: '260px',
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-						}}
-					>
+							marginLeft: "-40px",
+							marginRight: "260px",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+						}}>
 						<LikeButton like={like} onClick={toggleLike} />
 						<div
 							style={{
-								width: '50px',
-								whiteSpace: 'nowrap',
-							}}
-						>
+								width: "50px",
+								whiteSpace: "nowrap",
+							}}>
 							Liked by 'Like Count'
 						</div>
 					</div>
 					<button
 						style={{
-							width: '50px',
-							border: 'none',
-							backgroundColor: 'white',
-							cursor: 'pointer',
+							width: "50px",
+							border: "none",
+							backgroundColor: "white",
+							cursor: "pointer",
 						}}
-						onClick={toggleCommentsHandler}
-					>
-						<StComment src={comment} alt="댓글" />
+						onClick={toggleCommentsHandler}>
+						<StComment src={comment} alt='댓글' />
 					</button>
 				</div>
 				{moreContents && (
 					<div
-						className="ellipsis"
+						className='ellipsis'
 						style={{
-							width: '400px',
-							whiteSpace: 'nowrap',
-							overflow: 'hidden',
-							textOverflow: 'ellipsis',
-						}}
-					>
+							width: "400px",
+							whiteSpace: "nowrap",
+							overflow: "hidden",
+							textOverflow: "ellipsis",
+						}}>
 						{nickname} {content}
 						<StMoreDetailBtn onClick={moreViewHandler}>더보기</StMoreDetailBtn>
 					</div>
 				)}
 				{!moreContents && (
 					<div
-						className="ellipsis"
+						className='ellipsis'
 						style={{
-							width: '400px',
-						}}
-					>
+							width: "400px",
+						}}>
 						{nickname} {content}
 					</div>
 				)}
 			</StOotdCardContainer>
-			<Comments openComments={openComments} toggleCommentsHandler={toggleCommentsHandler} />
+			<Comments id={id} openComments={openComments} toggleCommentsHandler={toggleCommentsHandler} />
 		</>
 	);
 }
