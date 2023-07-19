@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsFillCloudUploadFill } from 'react-icons/bs';
 // import { GrClose } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-const OotdAddDropZone = ({ toggleOotdModal }) => {
+const OotdAddDropZone = ({ toggleOotdModal, setSelectedImage }) => {
+	//자식, uploadedFiles를 저쪽에 넘겨줘야하잖아요!
 	const [uploadedFiles, setUploadedFiles] = useState('');
+	useEffect(() => {
+		setSelectedImage(uploadedFiles);
+	}, [uploadedFiles]);
+
 	const onDrop = acceptedFiles => {
 		setUploadedFiles(acceptedFiles);
 		console.log(acceptedFiles);
@@ -17,11 +22,6 @@ const OotdAddDropZone = ({ toggleOotdModal }) => {
 	return (
 		<div {...getRootProps()}>
 			<input {...getInputProps()} />
-			{/* 
-			<STdropBoxTitle onClick={e => e.stopPropagation()}>
-				Drag & Drop
-				<GrClose onClick={toggleOotdModal} />
-			</STdropBoxTitle> */}
 
 			{uploadedFiles.length === 0 && (
 				<StImageUl>
