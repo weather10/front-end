@@ -1,57 +1,64 @@
-import React, { useState } from "react";
-import { HiPhotograph } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
-import add from "../../icon/add.png";
-import home from "../../icon/home.png";
-import people from "../../icon/people.png";
-import OotdAddlModal from "../Modal/OotdAddModal";
+
+import React, { useState } from 'react';
+import { HiPhotograph } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import add from '../../icon/add.png';
+import home from '../../icon/home.png';
+import people from '../../icon/people.png';
+import OotdAddModal from '../Modal/OotdAddModal';
+
 
 function NavBarButton({ stCardCenterRef }) {
 	const scrollToTop = () => {
 		stCardCenterRef.current.scrollTo({
 			top: 0,
-			behavior: "smooth",
+			behavior: 'smooth',
 		});
 	};
 	const navigate = useNavigate();
 	const [addModal, setAddModal] = useState(false);
 
-	const openOotdModal = () => {
-		setAddModal(true);
+
+	const toggleOotdModal = () => {
+		setAddModal(pre => !pre);
+
 	};
 
 	return (
 		<>
 			<StDiv>
 				<HomeButton onClick={scrollToTop}>
-					<HomeIcon src={home} alt='홈버튼' />
+					<HomeIcon src={home} alt="홈버튼" />
 					<StSpan>홈</StSpan>
 				</HomeButton>
 			</StDiv>
 			<StDiv>
 				<SingUpButton
 					onClick={() => {
-						navigate("signup");
-					}}>
-					<PeopleIcon src={people} alt='회원가입버튼' />
+						navigate('signup');
+					}}
+				>
+					<PeopleIcon src={people} alt="회원가입버튼" />
 					<StSpan>회원가입</StSpan>
 				</SingUpButton>
 			</StDiv>
 			<StDiv>
-				<AddButton onClick={openOotdModal}>
-					<AddIcon src={add} alt='게시물올리기버튼' />
 
+				<AddButton onClick={toggleOotdModal}>
+					<AddIcon src={add} alt="게시물올리기버튼" />
 					<StSpan>ootd 올리기</StSpan>
-					<OotdAddlModal addModal={addModal} />
+					<OotdAddModal addModal={addModal} toggleOotdModal={toggleOotdModal} />
+
 				</AddButton>
 			</StDiv>
 			<StDiv>
 				<EditButton
 					onClick={() => {
-						navigate("personaldata");
-					}}>
-					<HiPhotograph size={30} cursor='pointer' />
+						navigate('personaldata');
+					}}
+				>
+					<HiPhotograph size={30} cursor="pointer" />
 					<StSpan>프로필 수정</StSpan>
 				</EditButton>
 			</StDiv>
