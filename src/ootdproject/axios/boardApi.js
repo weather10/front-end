@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 
 // 게시글 조회
 export const getBoard = async () => {
