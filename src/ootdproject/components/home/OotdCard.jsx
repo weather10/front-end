@@ -1,18 +1,15 @@
-
 import React, { useState } from 'react';
 import { useMutation } from 'react-query';
 import { styled } from 'styled-components';
-import { postLike } from '../../axios/api';
-import image from '../../icon/basicAvatar.png';
+import { postLike } from '../../axios/boardApi';
+import basicAvatar from '../../icon/basicAvatar.png';
 import comment from '../../icon/comment.png';
-import example from '../../icon/example.jpg';
 import rainy from '../../icon/rainy.png';
 import Comments from '../Modal/Comments';
 import Avatar from './Avatar';
 import LikeButton from './LikeButton';
 
-
-function OotdCard() {
+function OotdCard({ image, content, nickname }) {
 	//좋아요
 	const [like, setLike] = useState(false);
 
@@ -29,7 +26,7 @@ function OotdCard() {
 
 	//댓글창 모달핸들러
 	const toggleCommentsHandler = () => {
-		setOpenComments((pre) => !pre);
+		setOpenComments(pre => !pre);
 	};
 
 	// useEffect(async () => {
@@ -48,13 +45,11 @@ function OotdCard() {
 
 	//const [mutate, { data, loading, error }] = useMutation(MUTATION_QUERY);
 	const postLikeMutation = useMutation(postLike, {
-
 		onSuccess: data => {
 			// 어쩌고
 		},
 		onError: err => {
 			console.log('ootdCard에러', err.message);
-
 		},
 	});
 
@@ -63,7 +58,6 @@ function OotdCard() {
 		postLikeMutation.mutate({ like });
 
 		console.log('toggleLike', like);
-
 	};
 
 	return (
@@ -80,19 +74,19 @@ function OotdCard() {
 							gap: '10px',
 						}}
 					>
-						<Avatar image={image} type="homeAvatar" />
+						<Avatar image={basicAvatar} type="homeAvatar" />
 						<div
 							style={{
 								width: '50px',
 							}}
 						>
-							userid
+							{nickname}
 						</div>
 					</div>
 					<WeatherIcon src={rainy} alt="ootd-weather-icon" />
 				</StCardHead>
 				<div className="card-img">
-					<MainOotdImg src={example} alt="userImage" />
+					<MainOotdImg src={image} alt="userImage" />
 				</div>
 				<div
 					className="like-comments-icon-container"
@@ -124,10 +118,9 @@ function OotdCard() {
 							backgroundColor: 'white',
 							cursor: 'pointer',
 						}}
-
-						onClick={toggleCommentsHandler}>
-						<StComment src={comment} alt='댓글' />
-
+						onClick={toggleCommentsHandler}
+					>
+						<StComment src={comment} alt="댓글" />
 					</button>
 				</div>
 				{moreContents && (
@@ -140,8 +133,7 @@ function OotdCard() {
 							textOverflow: 'ellipsis',
 						}}
 					>
-						UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design
-						resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
+						{nickname} {content}
 						<StMoreDetailBtn onClick={moreViewHandler}>더보기</StMoreDetailBtn>
 					</div>
 				)}
@@ -152,8 +144,7 @@ function OotdCard() {
 							width: '400px',
 						}}
 					>
-						UserId ✨ Award-winning ProduMicka Touillaud Design 🚀 I share my best practices and design
-						resources ✍🏻 Follow to see how I'm building this page #ui #ux #productdesignct Designer
+						{nickname} {content}
 					</div>
 				)}
 			</StOotdCardContainer>

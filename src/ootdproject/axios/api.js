@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 // export const instance = axios.create({
@@ -22,74 +21,21 @@ export const postSignUp = async payload => {
 		return response.data;
 	} catch (error) {
 		console.log('api쪽로직 error', error);
-
 	}
 };
 
 // 로그인 POST
 
 export const postSignIn = async payload => {
-
-
 	try {
 		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/login`, payload);
 		console.log(response);
-		// //헤더에 받는다라!!!!!!!훔
 		document.cookie = `accessToken=${response.headers.authorization}; path=/;`;
 		return response.data; // 로그인 성공 시 서버에서 반환한 데이터를 클라이언트에 반환
 	} catch (error) {
 		throw error; // 로그인 실패 시 에러를 던짐
 	}
 };
-
-// 게시글 조회
-const getPosts = async () => {
-	try {
-		const response = await axios.get(`${process.env.REACT_APP_SERVER}/api/posts`);
-		console.log('data', response.data);
-		return response.data;
-	} catch (error) {
-		console.error('게시글조회error', error);
-	}
-};
-
-// {
-// 	”image” : “image”,
-// 	”content” : “content”,
-// 	”weather” : “weather”
-// 	}
-// 게시글 작성하기 POST
-export const postPosts = async payload => {
-	try {
-		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post`);
-		console.log('data', response.data);
-		return response.data;
-	} catch (error) {
-		console.error('게시글조회error', error);
-	}
-};
-
-// 게시글 좋아요 POST
-export const postLike = async payload => {
-	try {
-		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post/{postId}/like`, payload);
-		return response.data;
-	} catch (error) {
-		throw error;
-	}
-};
-
-// 게시글 좋아요 취소 PUT
-export const putLikeCancel = async payload => {
-	try {
-		const response = await axios.put(`${process.env.REACT_APP_SERVER}/api/post/{postId}/like`, payload);
-		return response.data;
-	} catch (error) {
-		throw error;
-	}
-};
-
-export { getPosts };
 
 // setErrorMsg(error.response.data.message);
 // console.log(res);

@@ -13,7 +13,7 @@ const OotdAddDropZone = ({ toggleOotdModal }) => {
 	};
 	const navigate = useNavigate();
 	const { getRootProps, getInputProps } = useDropzone({ onDrop });
-
+	// const [selectedImage, setSelectedImage] = useState(null);
 	return (
 		<div {...getRootProps()}>
 			<input {...getInputProps()} />
@@ -57,16 +57,6 @@ const OotdAddDropZone = ({ toggleOotdModal }) => {
 	);
 };
 export default OotdAddDropZone;
-
-// const STdropBoxTitle = styled.div`
-// 	font-family: 'LeferiPoint-SpecialItalicA';
-// 	font-size: 35px;
-// 	font-weight: 900;
-// 	display: flex;
-// 	justify-content: space-between;
-// 	align-items: center;
-// 	margin-bottom: 15px;
-// `;
 
 // 업로드하는곳
 const StImageUl = styled.div`
