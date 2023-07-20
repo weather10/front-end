@@ -1,21 +1,66 @@
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { BsFillCloudUploadFill } from 'react-icons/bs';
+import { GrClose } from 'react-icons/gr';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import PersonalDropZone from './PersonalDropZone';
 
-function PersonalDataEditModal({ editModal, toggleEditModal }) {
+function PersonalDataEditModal({ editModal, toggleEditModal, setImage }) {
+	const [uploadedFiles, setUploadedFiles] = useState('');
+
+	useEffect(() => {
+		setImage(uploadedFiles);
+	}, [uploadedFiles]);
+
+	const onDrop = acceptedFiles => {
+		setUploadedFiles(acceptedFiles);
+		console.log(acceptedFiles);
+	};
+	const navigate = useNavigate();
+	const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
 	return (
 		<div>
 			{editModal && (
 				<>
 					<StEditModal>
-
 						<StModalBox onClick={e => e.stopPropagation()}>
 							<div>
-								<PersonalDropZone toggleEditModal={toggleEditModal} />
-								<StUploadBtn>Upload</StUploadBtn>
+								<div {...getRootProps()}>
+									<input {...getInputProps()} />
 
+									<STdropBoxTitle onClick={e => e.stopPropagation()}>
+										Drag & Drop
+										<GrClose onClick={toggleEditModal} />
+									</STdropBoxTitle>
+
+									{uploadedFiles.length === 0 && (
+										<StImageUl>
+											<BsFillCloudUploadFill size="100px" />
+										</StImageUl>
+									)}
+									{uploadedFiles.length === 1 && (
+										<div>
+											{uploadedFiles.map(file => (
+												<StShowImg>
+													<img
+														key={file.name}
+														src={URL.createObjectURL(file)}
+														alt={file.name}
+														style={{
+															maxWidth: '500px',
+															maxHeight: '500px',
+															display: 'flex',
+															justifyContent: 'center',
+															alignContent: 'center',
+														}}
+													/>
+												</StShowImg>
+											))}
+										</div>
+									)}
+								</div>
+								<StUploadBtn onClick={toggleEditModal}>Upload</StUploadBtn>
 							</div>
 						</StModalBox>
 					</StEditModal>
@@ -49,7 +94,6 @@ const StModalBox = styled.div`
 	justify-content: center;
 `;
 
-
 const StUploadBtn = styled.button`
 	font-family: 'LeferiPoint-SpecialItalicA';
 	font-weight: 600;
@@ -67,4 +111,30 @@ const StUploadBtn = styled.button`
 		transform: scale(1.2);
 		cursor: pointer;
 	}
+`;
+
+const StShowImg = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
+const STdropBoxTitle = styled.div`
+	font-family: 'LeferiPoint-SpecialItalicA';
+	font-size: 35px;
+	font-weight: 900;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+`;
+
+const StImageUl = styled.div`
+	width: 500px;
+	height: 500px;
+	background-color: rgba(255, 255, 255, 0.492);
+	border-radius: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
