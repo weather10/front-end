@@ -9,9 +9,8 @@ import { getComments, postComments, deleteComments } from "../../axios/commentsA
 
 //openComments는 OotdCard에 있는 댓글아이콘(버튼)을 클릭했을때 state의 변한 값임!
 //toggleCommentsHandler는 Ootd에서 실행되는 함수인데 여기서 온클릭을 했을때 바깥에 있는 함수에까지 전달되도록 props를 받은것!
-function Comments({ openComments, toggleCommentsHandler, postId, Ootdimage }) {
-	// const result = dateTimeString.replace(/T.*/, "");
 
+function Comments({ openComments, toggleCommentsHandler, postId, Ootdimage }) {
 	//댓글조회 data
 	const [data, setData] = useState([]);
 	const [content, setContent] = useState("");
@@ -56,25 +55,6 @@ function Comments({ openComments, toggleCommentsHandler, postId, Ootdimage }) {
 			setContent("");
 			fetchComments();
 			// e.preventDefault();
-		} catch (error) {
-			console.error("댓글 등록 실패:", error);
-		}
-	};
-
-	//댓글 삭제 DELETE api
-	const removeComments = async (event, commentId) => {
-		try {
-			const token = document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
-			const headers = {
-				Accept: "*/*",
-				Authorization: `${token}`,
-				"Content-Type": "application/json",
-			};
-
-			const response = await deleteComments(postId, commentId, headers);
-			console.log("comment resData", response);
-			fetchComments();
-			// document.location.reload(true);
 		} catch (error) {
 			console.error("댓글 등록 실패:", error);
 		}
@@ -235,7 +215,6 @@ const StAddComments = styled.button`
 const UserComment = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
 	width: 445px;
 	padding: 6px 2px 6px 6px;
 	height: auto;

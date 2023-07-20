@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import humidity from "../../icon/humidity.png";
 import rainfall from "../../icon/rainfall.png";
@@ -38,7 +38,7 @@ const StWeatherContainer = styled.div`
 	position: sticky;
 	width: 40%;
 	height: 100vh;
-	background-color: rgba(72, 132, 238, 0.2);
+	background-color: rgba(155, 60, 168, 0.2);
 	display: flex;
 	align-items: center;
 	justify-content: center;

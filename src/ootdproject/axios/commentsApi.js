@@ -28,7 +28,7 @@ export const getComments = async (postId) => {
 		console.error("댓글 조회 실패:", error);
 	}
 };
-//댓글 작성 POST headers, content
+//댓글 작성 POST
 export const postComments = async (postId, headers, payload) => {
 	try {
 		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/post/${postId}/comment`, payload, {
@@ -40,17 +40,19 @@ export const postComments = async (postId, headers, payload) => {
 		console.log("postComments axios error", error);
 	}
 };
-//댓글 삭제 DELETE.....
+//댓글 삭제 DELETE
 export const deleteComments = async (postId, commentId, headers) => {
 	try {
+		headers = addTokenHeader(headers);
 		const response = await axios.delete(`${process.env.REACT_APP_SERVER}/api/post/${postId}/comment/${commentId}`, {
 			headers: headers,
 		});
-		console.log("댓글 삭제완료", response.data); // 성공
+		console.log("댓글 삭제완료", response.data);
 
 		return response.data;
 	} catch (error) {
 		console.log("deleteComments axios error", error);
+		throw error;
 	}
 };
 
@@ -67,7 +69,7 @@ export const patchComments = async (postId, commentId, headers, payload) => {
 		);
 		return response.data;
 	} catch (error) {
-		console.log("deleteComments axios error", error);
+		console.log("patchComments axios error", error);
 		throw error;
 	}
 };

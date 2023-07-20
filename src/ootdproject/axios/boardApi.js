@@ -43,3 +43,15 @@ export const putLikeCancel = async (payload) => {
 		throw error;
 	}
 };
+
+//게시글 단일 조회 GET
+export const getSingleBoard = async (postId) => {
+	try {
+		const response = await axios.get(`${process.env.REACT_APP_SERVER}/api/posts/${postId}`);
+		console.log("게시글 단일조회 data", response.data);
+		return response.data;
+	} catch (error) {
+		console.error("게시글 단일조회 에러", error);
+		throw error;
+	}
+};

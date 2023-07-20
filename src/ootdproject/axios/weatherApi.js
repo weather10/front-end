@@ -1,9 +1,9 @@
 import axios from "axios";
 // 날씨 조회 GET
 
-export const getWeather = async () => {
+export const getWeather = async (latitude, longitude) => {
 	try {
-		const response = await axios.get(`${process.env.REACT_APP_SERVER}/api/weather/{위도}/{경도}`);
+		const response = await axios.get(`${process.env.REACT_APP_SERVER}/api/weather/${latitude}/${longitude}`);
 		console.log("날씨 조회 data", response.data);
 		return response.data;
 	} catch (error) {
