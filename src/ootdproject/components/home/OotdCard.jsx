@@ -9,7 +9,7 @@ import Comments from "../Modal/Comments";
 import Avatar from "./Avatar";
 import LikeButton from "./LikeButton";
 
-function OotdCard({ image, content, nickname, id }) {
+function OotdCard({ Ootdimage, content, nickname, postId }) {
 	//좋아요
 	const [like, setLike] = useState(false);
 
@@ -84,7 +84,7 @@ function OotdCard({ image, content, nickname, id }) {
 					<WeatherIcon src={rainy} alt='ootd-weather-icon' />
 				</StCardHead>
 				<div className='card-img'>
-					<MainOotdImg src={image} alt='userImage' />
+					<MainOotdImg src={Ootdimage} alt='userImage' />
 				</div>
 				<div
 					className='like-comments-icon-container'
@@ -140,7 +140,12 @@ function OotdCard({ image, content, nickname, id }) {
 					</div>
 				)}
 			</StOotdCardContainer>
-			<Comments id={id} openComments={openComments} toggleCommentsHandler={toggleCommentsHandler} />
+			<Comments
+				postId={postId}
+				openComments={openComments}
+				toggleCommentsHandler={toggleCommentsHandler}
+				Ootdimage={Ootdimage}
+			/>
 		</>
 	);
 }

@@ -36,7 +36,7 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected, setUploadedF
 
 			const response = await postBoard(formData, headers);
 			console.log("ootdaddmodal - response.data:", response.data);
-
+			document.location.reload(true);
 			toggleOotdModal();
 		} catch (error) {
 			console.error("imgAndPost전송 실패:", error);

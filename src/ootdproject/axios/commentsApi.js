@@ -37,7 +37,7 @@ export const deleteComments = async (postId, commentId, headers) => {
 };
 
 //댓글 수정 PATCH
-export const patchComments = async (payload) => {
+export const patchComments = async (postId, commentId, headers, payload) => {
 	try {
 		const response = await axios.patch(
 			`${process.env.REACT_APP_SERVER}/api/post/{postId}/comment/{commentId}`,
