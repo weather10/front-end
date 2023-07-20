@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { styled } from "styled-components";
 import { postLike } from "../../axios/boardApi";
-import basicAvatar from "../../icon/basicAvatar.png";
+import profile from "../../icon/profile.jpg";
 import comment from "../../icon/comment.png";
 import rainy from "../../icon/rainy.png";
 import Comments from "../Modal/Comments";
@@ -29,20 +29,6 @@ function OotdCard({ Ootdimage, content, nickname, postId }) {
 		setOpenComments((pre) => !pre);
 	};
 
-	// useEffect(async () => {
-	// 	const fetchData = async () => {
-	// 		const res = await axios.get("http://localhost:4000/liked");
-	// 		if (res.data.type === "liked") setLike(true);
-	// 	};
-	// 	fetchData();
-	// }, []);
-
-	// const toggleLike = async e => {
-	// 	const res = await axios.post('http://localhost:4000/liked'); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
-	// 	res.then();
-	// 	setLike(!like);
-	// };
-
 	//const [mutate, { data, loading, error }] = useMutation(MUTATION_QUERY);
 	const postLikeMutation = useMutation(postLike, {
 		onSuccess: (data) => {
@@ -60,6 +46,8 @@ function OotdCard({ Ootdimage, content, nickname, postId }) {
 		console.log("toggleLike", like);
 	};
 
+	//게시글 단일조회
+
 	return (
 		<>
 			<StOotdCardContainer>
@@ -73,7 +61,7 @@ function OotdCard({ Ootdimage, content, nickname, postId }) {
 							justifyContent: "center",
 							gap: "10px",
 						}}>
-						<Avatar image={basicAvatar} type='homeAvatar' />
+						<Avatar image={profile} type='homeAvatar' />
 						<div
 							style={{
 								width: "50px",
@@ -102,8 +90,9 @@ function OotdCard({ Ootdimage, content, nickname, postId }) {
 							style={{
 								width: "50px",
 								whiteSpace: "nowrap",
+								fontSize: "small",
 							}}>
-							Liked by 'Like Count'
+							김광일님 외 5명이 이 게시글을 좋아합니다.
 						</div>
 					</div>
 					<button
@@ -158,6 +147,7 @@ const StOotdCardContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	margin-top: 50px;
+	margin-bottom: 30px;
 	width: 400px;
 	height: 100%;
 	border-bottom: 1px solid black;

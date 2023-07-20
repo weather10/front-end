@@ -62,21 +62,3 @@ const StCardCenter = styled.div`
 		display: none;
 	}
 `;
-
-// {
-// id: 9,
-// image: "https://ootdgram-bucket.s3.ap-northeast-2.amazonaws.com/post/524c0f69-a87c-43fc-827f-26c60ecfa740-277EDC3B576C7E9A1A.png",
-// content: "게시글 9",
-// createdAt: "2023-07-19T06:03:15.434741",
-// modifiedAt: "2023-07-19T06:03:15.434741",
-// commentList: [
-// {
-// id: 21,
-// content: "댓글1",
-// nickname: "1234567",
-// createdAt: "2023-07-19T06:04:51.73729",
-// modifiedAt: "2023-07-19T06:04:51.73729"
-// }
-// ],
-// nickname: "1234567"
-// },

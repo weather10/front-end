@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
-import { getBoard, postBoard } from '../../axios/boardApi';
-import OotdAddDropZone from './OotdAddDropZone';
+import React, { useState } from "react";
+import { styled } from "styled-components";
+import { postBoard } from "../../axios/boardApi";
+import OotdAddDropZone from "./OotdAddDropZone";
 
 function OotdAddModal({ addModal, toggleOotdModal, onImageSelected, setUploadedFiles }) {
-	const [ootdText, setOotdText] = useState('');
+	const [ootdText, setOotdText] = useState("");
 	const [selectedImage, setSelectedImage] = useState();
 
-	const handleKeyDown = e => {
-		if (e.key === ' ') {
-			setOotdText(prevText => prevText + ' ');
+	const handleKeyDown = (e) => {
+		if (e.key === " ") {
 			e.preventDefault();
 		}
 	};
-
 	const imgAndPostHandler = async () => {
 		try {
-			const token = document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+			const token = document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
 			const headers = {
-				Accept: '*/*',
+				Accept: "*/*",
 				Authorization: `${token}`,
-				'Content-Type': 'multipart/form-data',
+				"Content-Type": "multipart/form-data",
 			};
 
 			const formData = new FormData();
@@ -29,20 +27,17 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected, setUploadedF
 				content: ootdText,
 			};
 
-			formData.append('image', selectedImage[0]);
-			formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
+			formData.append("image", selectedImage[0]);
+			formData.append("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
 
 			const response = await postBoard(formData, headers);
-
 			console.log("ootdaddmodal - response.data:", response.data);
 			document.location.reload(true);
-
 			toggleOotdModal();
 		} catch (error) {
-			console.error('imgAndPost전송 실패:', error);
+			console.error("imgAndPost전송 실패:", error);
 		}
 	};
-
 	return (
 		<div>
 			{addModal && (
@@ -53,7 +48,7 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected, setUploadedF
 								<p>Drag & Drop</p>
 								<p>Write your OOTD</p>
 							</STdropBoxTitle>
-							<div onClick={e => e.stopPropagation()}>
+							<div onClick={(e) => e.stopPropagation()}>
 								<OotdAddDropZone
 									onImageSelected={setUploadedFiles}
 									setSelectedImage={setSelectedImage}
@@ -63,10 +58,10 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected, setUploadedF
 								<StWriteOotd
 									value={ootdText}
 									onKeyDown={handleKeyDown}
-									onChange={e => setOotdText(e.target.value)}
+									onChange={(e) => setOotdText(e.target.value)}
 								/>
 							</div>
-							<div onClick={e => e.stopPropagation()}>
+							<div onClick={(e) => e.stopPropagation()}>
 								<StOotdUploadBtn onClick={imgAndPostHandler}>Upload</StOotdUploadBtn>
 							</div>
 						</StModalBox>
@@ -105,7 +100,7 @@ const StModalBox = styled.div`
 
 // 게시글
 const StWriteOotd = styled.textarea`
-	font-family: 'omyu_pretty';
+	font-family: "omyu_pretty";
 	width: 300px;
 	height: 380px;
 	font-size: 30px;
@@ -119,7 +114,7 @@ const STdropBoxTitle = styled.div`
 	position: absolute;
 	top: 80px;
 	left: 40px;
-	font-family: 'LeferiPoint-SpecialItalicA';
+	font-family: "LeferiPoint-SpecialItalicA";
 	font-size: 27px;
 	font-weight: 900;
 	display: flex;
@@ -133,7 +128,7 @@ const StOotdUploadBtn = styled.button`
 	position: absolute;
 	bottom: 50px;
 	right: 100px;
-	font-family: 'LeferiPoint-SpecialItalicA';
+	font-family: "LeferiPoint-SpecialItalicA";
 	font-weight: 600;
 	font-size: 30px;
 	border: none;
