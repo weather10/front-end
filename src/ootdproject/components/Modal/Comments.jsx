@@ -4,21 +4,20 @@ import yellowGirl from "../../icon/yellowGirl.jpg";
 import { GrClose } from "react-icons/gr";
 import Avatar from "../home/Avatar";
 import basic from "../../icon/basicAvatar.png";
-import { getComments } from "../../axios/comments";
+import { getComments, postComments, deleteComments, patchComments } from "../../axios/commentsApi";
 
 //openComments는 OotdCard에 있는 댓글아이콘(버튼)을 클릭했을때 state의 변한 값임!
 //toggleCommentsHandler는 Ootd에서 실행되는 함수인데 여기서 온클릭을 했을때 바깥에 있는 함수에까지 전달되도록 props를 받은것!
-function Comments({ openComments, toggleCommentsHandler, id }) {
-	const nickname = "eunji__2f";
-	const textmsg = "ㄴㅇ럼니ㅏ어림나ㅓ림너리ㅏㅁㄴ어라ㅣㄴ머하ㅣㄴ멍ㅎ;멓ㄴ;함ㄴㅇㅎ";
-	const dateTimeString = "2023-07-16T03:32:51.078944";
-	const result = dateTimeString.replace(/T.*/, "");
+function Comments({ openComments, toggleCommentsHandler, postId, Ootdimage }) {
+	// const result = dateTimeString.replace(/T.*/, "");
 
+	//댓글조회 data
 	const [data, setData] = useState([]);
 
+	//댓글 조회 GET Api
 	const fetchComments = async () => {
 		try {
-			const data = await getComments(id);
+			const data = await getComments(postId);
 			console.log("댓글 조회 성공:", data);
 			setData(data);
 		} catch (error) {
@@ -29,9 +28,98 @@ function Comments({ openComments, toggleCommentsHandler, id }) {
 		fetchComments();
 	}, []);
 
-	const onSubmitHandler = (event) => {
-		event.preventDefault(); //있으면 좋은건가용? - 폼태그 액션
+	const [content, setContent] = useState("");
+
+	const AddCommentsHandler = (e) => {
+		setContent(e.target.value);
 	};
+
+	//댓글 등록 POST Api
+	const addComments = async () => {
+		try {
+			const token = document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
+			const headers = {
+				Accept: "*/*",
+				Authorization: `${token}`,
+				"Content-Type": "application/json",
+			};
+
+			const payload = {
+				content,
+			};
+			const response = await postComments(postId, headers, payload);
+			console.log("comment resData", response);
+
+			setContent("");
+			fetchComments();
+			// e.preventDefault();
+		} catch (error) {
+			console.error("댓글 등록 실패:", error);
+		}
+	};
+
+	//댓글 삭제 DELETE api
+	const removeComments = async () => {
+		try {
+			const token = document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
+			const headers = {
+				Accept: "*/*",
+				Authorization: `${token}`,
+				"Content-Type": "application/json",
+			};
+
+			const response = await deleteComments(postId, commentId, headers);
+			console.log("comment resData", response);
+			fetchComments();
+			// document.location.reload(true);
+		} catch (error) {
+			console.error("댓글 등록 실패:", error);
+		}
+	};
+
+	const onSubmitHandler = (event) => {
+		event.preventDefault();
+		addComments();
+		setContent("");
+		// document.location.reload(true); // 성공시 새로고침
+	};
+
+	//댓글 수정상태 true
+	const [isOpen, setIsOpen] = useState(false);
+	const [commentId, setCommentId] = useState("");
+
+	//수정버튼클릭
+	const openUpdateHandler = (commentId) => {
+		setIsOpen(!isOpen);
+		setCommentId(commentId);
+	};
+
+	const onChangeUpdate = (e) => {
+		setContent(e.target.value);
+	};
+
+	//댓글 수정 PATCH api
+	const updateComments = async () => {
+		try {
+			const token = document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
+			const headers = {
+				Accept: "*/*",
+				Authorization: `${token}`,
+				"Content-Type": "application/json",
+			};
+
+			const payload = {
+				content,
+			};
+
+			const response = await patchComments(postId, commentId, headers, payload);
+			console.log("수정성공", response);
+		} catch (error) {
+			console.error("댓글 수정 실패:", error);
+		}
+	};
+
+	//
 
 	return (
 		<div>
@@ -40,7 +128,7 @@ function Comments({ openComments, toggleCommentsHandler, id }) {
 					<StModalsFather>
 						<StModalOneChild>
 							<StImgBox>
-								<StImg src={yellowGirl} />
+								<StImg src={Ootdimage} />
 							</StImgBox>
 							<StCommentsBox>
 								<StButtonBox>
@@ -50,20 +138,49 @@ function Comments({ openComments, toggleCommentsHandler, id }) {
 									{data.map((item) => (
 										<UserComment>
 											<Avatar image={item.userImage} type='homeAvatar' />
-											<StTextBox>
-												<StIdText>{item.nickname}</StIdText>
-												<StDate>{item.createdAt}</StDate>
-											</StTextBox>
+											{isOpen ? (
+												<StTextBox>
+													<StIdText>
+														{item.nickname}
+														<Update
+															type='text'
+															onChange={onChangeUpdate}
+															defaultValue={item.content}
+														/>
+													</StIdText>
+													<StDate>{item.createdAt}</StDate>
+												</StTextBox>
+											) : (
+												<StTextBox>
+													<StIdText>
+														{item.nickname}
+														{item.content}
+													</StIdText>
+													<StDate>{item.createdAt}</StDate>
+												</StTextBox>
+											)}
 											<StUserEditCancelBtnBox>
-												<StUserBtn>수정</StUserBtn>
-												<StUserBtn>삭제</StUserBtn>
+												{isOpen ? (
+													<StUserBtn onClick={(item) => updateComments(item.id)}>
+														완료
+													</StUserBtn>
+												) : (
+													<StUserBtn onClick={(item) => openUpdateHandler(item.id)}>
+														수정
+													</StUserBtn>
+												)}
+												<StUserBtn onClick={(item) => removeComments(item.id)}>삭제</StUserBtn>
 											</StUserEditCancelBtnBox>
 										</UserComment>
 									))}
 								</StGetCommentsBox>
 								<StInputBox>
-									<form>
-										<StInput placeholder='댓글 달기...' />
+									<form onSubmit={AddCommentsHandler}>
+										<StInput
+											placeholder='댓글 달기...'
+											value={content}
+											onChange={AddCommentsHandler}
+										/>
 										<StAddComments onClick={onSubmitHandler}>게시</StAddComments>
 									</form>
 								</StInputBox>
@@ -211,3 +328,5 @@ const StUserBtn = styled.button`
 	}
 	font-weight: 550;
 `;
+
+const Update = styled.input``;

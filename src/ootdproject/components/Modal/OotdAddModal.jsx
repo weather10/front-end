@@ -33,7 +33,9 @@ function OotdAddModal({ addModal, toggleOotdModal, onImageSelected, setUploadedF
 			formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
 
 			const response = await postBoard(formData, headers);
-			console.log('ootdaddmodal - response.data:', response.data);
+
+			console.log("ootdaddmodal - response.data:", response.data);
+			document.location.reload(true);
 
 			toggleOotdModal();
 		} catch (error) {

@@ -21,12 +21,18 @@ function Home() {
 	useEffect(() => {
 		fetchBoard();
 	}, []);
+
 	return (
 		<StOotdContainer>
 			<StCardCenter ref={stCardCenterRef}>
 				{data.map((item) => (
 					<div key={item.id}>
-						<OotdCard id={item.id} image={item.image} content={item.content} nickname={item.nickname} />
+						<OotdCard
+							postId={item.id}
+							Ootdimage={item.image}
+							content={item.content}
+							nickname={item.nickname}
+						/>
 					</div>
 				))}
 			</StCardCenter>

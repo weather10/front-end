@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { styled } from 'styled-components';
+import React, { useState } from "react";
+import { styled } from "styled-components";
 
 function HourlyWeather() {
 	const slideCount = 4; // 슬라이드 개수
@@ -29,6 +29,8 @@ function HourlyWeather() {
 		}
 	}
 
+	const weatherList = ["1시", "2시", "3시", "4시", "5시"];
+
 	return (
 		<>
 			<StSlideShow>
@@ -36,19 +38,34 @@ function HourlyWeather() {
 					style={{
 						width: `${(slideWidth + slideMargin) * slideCount}px`,
 						left: `-${currentIdx * slideWidth}px`,
-					}}
-				>
+					}}>
 					<FistChild>
-						<ShowImg>첫번째 슬라이드0시~6시</ShowImg>
+						<ShowImg>
+							{weatherList.map((item) => (
+								<OneWeather>{item}</OneWeather>
+							))}
+						</ShowImg>
 					</FistChild>
 					<Stli>
-						<ShowImg>두번째 슬라이드6시~12시</ShowImg>
+						<ShowImg>
+							{weatherList.map((item) => (
+								<OneWeather>{item}</OneWeather>
+							))}
+						</ShowImg>
 					</Stli>
 					<Stli>
-						<ShowImg>세번째 슬라이드12시~18시</ShowImg>
+						<ShowImg>
+							{weatherList.map((item) => (
+								<OneWeather>{item}</OneWeather>
+							))}
+						</ShowImg>
 					</Stli>
 					<LastChild>
-						<ShowImg>네번째 슬라이드18시~24시</ShowImg>
+						<ShowImg>
+							{weatherList.map((item) => (
+								<OneWeather>{item}</OneWeather>
+							))}
+						</ShowImg>
 					</LastChild>
 				</StSlides>
 				<p>
@@ -92,9 +109,9 @@ const StSlides = styled.ul`
 const FistChild = styled.li`
 	list-style-type: none;
 	/* 첫번째만 가운데 정렬을 위해 left에 margin */
-	margin-left: 100px;
+	margin-left: 0px;
 	float: left;
-	margin-right: 100px;
+	margin-right: 200px;
 `;
 
 const Stli = styled.li`
@@ -109,9 +126,10 @@ const LastChild = styled.li`
 `;
 
 const ShowImg = styled.div`
+	display: flex;
 	background-color: blue;
-	width: 300px;
-	height: 500px;
+	width: 500px;
+	height: 200px;
 `;
 
 const StSpan = styled.span`
@@ -125,4 +143,9 @@ const StSpan = styled.span`
 	right: 0px;
 	font-size: 1.3em;
 	cursor: pointer;
+`;
+
+const OneWeather = styled.div`
+	width: 100px;
+	height: 100px;
 `;
