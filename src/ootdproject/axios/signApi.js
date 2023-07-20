@@ -1,13 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
 // export const instance = axios.create({
 // 	baseURL: "http://ec2-54-180-120-109.ap-northeast-2.compute.amazonaws.com",
 // });
 
 const headers = {
-	Accept: '*/*', // 돌려받는 거 전부 받을 수 있게
-	authorization: '', // 엑세스 토큰 넣는 곳
-	'Content-Type': 'application/json', // 객체 보낼 때는 application/json
+	Accept: "*/*", // 돌려받는 거 전부 받을 수 있게
+	authorization: "", // 엑세스 토큰 넣는 곳
+	"Content-Type": "application/json", // 객체 보낼 때는 application/json
 	// "Content-Type": "multipart/form-data", // FormData는 이걸로
 	// 헤더에 넣는 방법은 헤더 키값 : 벨류값
 	// headerName : headerValue
@@ -15,18 +15,18 @@ const headers = {
 
 // 회원가입 POST
 
-export const postSignUp = async payload => {
+export const postSignUp = async (payload) => {
 	try {
 		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/signup`, payload);
 		return response.data;
 	} catch (error) {
-		console.log('api쪽로직 error', error);
+		console.log("api쪽로직 error", error);
 	}
 };
 
 // 로그인 POST
 
-export const postSignIn = async payload => {
+export const postSignIn = async (payload) => {
 	try {
 		const response = await axios.post(`${process.env.REACT_APP_SERVER}/api/auth/login`, payload);
 		console.log(response);

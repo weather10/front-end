@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { postSignUp } from "../axios/api";
+import { postSignUp } from "../axios/signApi";
 import signLogo from "../icon/logo.png";
 import { StInputForm, StOotdGramContainer, StSignButton, StSignInput, StSignLogo } from "./SignIn";
 

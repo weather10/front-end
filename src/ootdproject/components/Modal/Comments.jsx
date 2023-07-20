@@ -4,7 +4,8 @@ import yellowGirl from "../../icon/yellowGirl.jpg";
 import { GrClose } from "react-icons/gr";
 import Avatar from "../home/Avatar";
 import basic from "../../icon/basicAvatar.png";
-import { getComments, postComments, deleteComments, patchComments } from "../../axios/commentsApi";
+import CommentInput from "../FixedComponent/CommentInput";
+import { getComments, postComments, deleteComments } from "../../axios/commentsApi";
 
 //openComments는 OotdCard에 있는 댓글아이콘(버튼)을 클릭했을때 state의 변한 값임!
 //toggleCommentsHandler는 Ootd에서 실행되는 함수인데 여기서 온클릭을 했을때 바깥에 있는 함수에까지 전달되도록 props를 받은것!
@@ -13,12 +14,16 @@ function Comments({ openComments, toggleCommentsHandler, postId, Ootdimage }) {
 
 	//댓글조회 data
 	const [data, setData] = useState([]);
+	const [content, setContent] = useState("");
 
 	//댓글 조회 GET Api
 	const fetchComments = async () => {
 		try {
 			const data = await getComments(postId);
 			console.log("댓글 조회 성공:", data);
+			data.forEach((element) => {
+				element.isOpen = false;
+			});
 			setData(data);
 		} catch (error) {
 			console.error("댓글 조회 실패:", error);
@@ -27,8 +32,6 @@ function Comments({ openComments, toggleCommentsHandler, postId, Ootdimage }) {
 	useEffect(() => {
 		fetchComments();
 	}, []);
-
-	const [content, setContent] = useState("");
 
 	const AddCommentsHandler = (e) => {
 		setContent(e.target.value);
@@ -59,7 +62,7 @@ function Comments({ openComments, toggleCommentsHandler, postId, Ootdimage }) {
 	};
 
 	//댓글 삭제 DELETE api
-	const removeComments = async () => {
+	const removeComments = async (event, commentId) => {
 		try {
 			const token = document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
 			const headers = {
@@ -84,42 +87,15 @@ function Comments({ openComments, toggleCommentsHandler, postId, Ootdimage }) {
 		// document.location.reload(true); // 성공시 새로고침
 	};
 
-	//댓글 수정상태 true
-	const [isOpen, setIsOpen] = useState(false);
-	const [commentId, setCommentId] = useState("");
-
 	//수정버튼클릭
-	const openUpdateHandler = (commentId) => {
-		setIsOpen(!isOpen);
-		setCommentId(commentId);
+	const openUpdateHandler = (event, index) => {
+		data[index].isOpen = !data[index].isOpen;
+		setData([...data]);
 	};
 
 	const onChangeUpdate = (e) => {
 		setContent(e.target.value);
 	};
-
-	//댓글 수정 PATCH api
-	const updateComments = async () => {
-		try {
-			const token = document.cookie.replace(/(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
-			const headers = {
-				Accept: "*/*",
-				Authorization: `${token}`,
-				"Content-Type": "application/json",
-			};
-
-			const payload = {
-				content,
-			};
-
-			const response = await patchComments(postId, commentId, headers, payload);
-			console.log("수정성공", response);
-		} catch (error) {
-			console.error("댓글 수정 실패:", error);
-		}
-	};
-
-	//
 
 	return (
 		<div>
@@ -135,42 +111,16 @@ function Comments({ openComments, toggleCommentsHandler, postId, Ootdimage }) {
 									<GrClose onClick={toggleCommentsHandler} />
 								</StButtonBox>
 								<StGetCommentsBox>
-									{data.map((item) => (
-										<UserComment>
-											<Avatar image={item.userImage} type='homeAvatar' />
-											{isOpen ? (
-												<StTextBox>
-													<StIdText>
-														{item.nickname}
-														<Update
-															type='text'
-															onChange={onChangeUpdate}
-															defaultValue={item.content}
-														/>
-													</StIdText>
-													<StDate>{item.createdAt}</StDate>
-												</StTextBox>
-											) : (
-												<StTextBox>
-													<StIdText>
-														{item.nickname}
-														{item.content}
-													</StIdText>
-													<StDate>{item.createdAt}</StDate>
-												</StTextBox>
-											)}
-											<StUserEditCancelBtnBox>
-												{isOpen ? (
-													<StUserBtn onClick={(item) => updateComments(item.id)}>
-														완료
-													</StUserBtn>
-												) : (
-													<StUserBtn onClick={(item) => openUpdateHandler(item.id)}>
-														수정
-													</StUserBtn>
-												)}
-												<StUserBtn onClick={(item) => removeComments(item.id)}>삭제</StUserBtn>
-											</StUserEditCancelBtnBox>
+									{data.map((item, index) => (
+										<UserComment key={item.id}>
+											<CommentInput
+												postId={postId}
+												data={data}
+												item={item}
+												index={index}
+												setData={setData}
+												openUpdateHandler={openUpdateHandler}
+											/>
 										</UserComment>
 									))}
 								</StGetCommentsBox>
@@ -282,7 +232,6 @@ const StAddComments = styled.button`
 	font-weight: 550;
 `;
 
-//여기서부터 map 돌려서 반복해야하는 댓글1개당 styled-components
 const UserComment = styled.div`
 	display: flex;
 	align-items: center;
@@ -292,41 +241,3 @@ const UserComment = styled.div`
 	height: auto;
 	overflow: hidden;
 `;
-
-const StTextBox = styled.div`
-	display: flex;
-	flex-direction: column;
-	margin-left: 10px;
-`;
-
-const StIdText = styled.div`
-	font-size: medium;
-`;
-
-const StDate = styled.div`
-	font-size: small;
-`;
-
-const StUserEditCancelBtnBox = styled.div`
-	display: flex;
-	flex-direction: column;
-	margin-left: 20px;
-`;
-
-const StUserBtn = styled.button`
-	width: 40px;
-	height: 23px;
-	cursor: pointer;
-	border: none;
-	/* border: 1px solid rgb(89, 60, 60);
-	border-radius: 8px; */
-	background-color: transparent;
-	&:hover {
-		transform: scale(1.1);
-		color: rgb(89, 60, 60);
-		font-weight: 650;
-	}
-	font-weight: 550;
-`;
-
-const Update = styled.input``;

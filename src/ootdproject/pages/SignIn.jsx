@@ -5,7 +5,7 @@ import { styled } from "styled-components";
 // import { useQuery } from "react-query";
 // import { getPosts } from "../axios/api";
 import signLogo from "../icon/logo.png";
-import { postSignIn } from "../axios/api";
+import { postSignIn } from "../axios/signApi";
 import { useMutation } from "react-query";
 import { isEmail, isPassword } from "./SignUp";
 
@@ -70,6 +70,7 @@ function SignIn() {
 				postSignInMutaion.mutate({ email, password, latitude, longitude });
 				navigate("/");
 				alert("로그인 성공!");
+				// ★★★★★★
 			} catch (error) {
 				console.error(error);
 			}
